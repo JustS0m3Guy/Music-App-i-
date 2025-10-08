@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=1200" />
+  <title>VGM Library — Prototype</title>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Fixed background (stays still while content scrolls) -->
+  <div class="site-bg" aria-hidden="true"></div>
+
+  <div class="wrap">
+    <header class="nav" role="banner">
+      <div class="brand">
+        <div class="logo">VGM</div>
+        <div>
+          <h1>VGM Library</h1>
+          <div class="muted small">Playful • Streaming-style • Desktop</div>
+        </div>
+      </div>
+
+      <div class="nav-controls">
+        <div class="search" role="search">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" style="opacity:0.8"><path d="M21 21l-4.35-4.35" stroke="#14213D" stroke-width="1.6" stroke-linecap="round"/></svg>
+          <input id="globalSearch" placeholder="Search games or songs..." aria-label="Search games or songs" />
+        </div>
+
+        <nav class="links" role="navigation" aria-label="Main navigation">
+          <button class="nav-btn active" data-route="home">Browse</button>
+          <button class="nav-btn" data-route="upload">Upload</button>
+          <button class="nav-btn" data-route="favs">Favourites</button>
+        </nav>
+
+        <div class="profile">
+          <div class="avatar" title="Profile"></div>
+        </div>
+      </div>
+    </header>
+
+    
+</body>
