@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=1200" />
+  <title>VGM Library — Prototype</title>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Fixed background (stays still while content scrolls) -->
+  <div class="site-bg" aria-hidden="true"></div>
+
+  <div class="wrap">
+    <header class="nav" role="banner">
+      <div class="brand">
+        <div class="logo">VGM</div>
+        <div>
+          <h1>VGM Library</h1>
+          <div class="muted small">Playful • Streaming-style • Desktop</div>
+        </div>
+      </div>
+
+      <div class="nav-controls">
+        <div class="search" role="search">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" style="opacity:0.8"><path d="M21 21l-4.35-4.35" stroke="#14213D" stroke-width="1.6" stroke-linecap="round"/></svg>
+          <input id="globalSearch" placeholder="Search games or songs..." aria-label="Search games or songs" />
+        </div>
+
+        <nav class="links" role="navigation" aria-label="Main navigation">
+          <button class="nav-btn active" data-route="home">Browse</button>
+          <button class="nav-btn" data-route="upload">Upload</button>
+          <button class="nav-btn" data-route="favs">Favourites</button>
+        </nav>
+
+        <div class="profile">
+          <div class="avatar" title="Profile"></div>
+        </div>
+      </div>
+    </header>
+
+    <main class="content" id="app">
+
+      <!-- Home / Games Grid -->
+      <section id="homeView" class="view">
+        <div class="hero light-panel">
+          <div class="left">
+            <h2>Featured Games & Soundtracks</h2>
+            <p>Discover soundtracks by game, year or type — click a game for its song list. <strong class="accent-txt">Heart</strong> to save favourites.</p>
+          </div>
+          <div class="right accent-box">Featured</div>
+        </div>
+
+        <div>
+          <div class="section-title">All Games</div>
+          <div class="filters">
+            <select id="filterType" class="select" aria-label="Filter by game type">
+              <option value="">All types</option>
+            </select>
+            <select id="filterYear" class="select" aria-label="Filter by year">
+              <option value="">All years</option>
+            </select>
+            <button id="clearFilters" class="tab">Clear filters</button>
+          </div>
+
+          <div class="games-grid" id="gamesGrid" aria-live="polite"></div>
+        </div>
+      </section>
+
+      <!-- Game Detail / Songs + Comments -->
+      <section id="gameView" class="view" style="display:none">
+        <button id="backToBrowse" class="nav-btn">← Back to Browse</button>
+        <div style="display:flex; gap:20px; align-items:center; margin-top:12px;">
+          <div class="cover-placeholder">No Image</div>
+          <div>
+            <h2 id="gameTitle" style="font-family:'Poppins'"></h2>
+            <div class="muted" id="gameMeta"></div>
+          </div>
+        </div>
+
+        <div style="margin-top:18px;">
+          <div class="song-list" id="songList"></div>
+
+          <div class="comments" id="commentsSection">
+            <div class="section-title">Comments</div>
+            <div id="commentsList"></div>
+
+            <div style="margin-top:12px;">
+              <textarea id="commentInput" rows="3" class="comment-input" placeholder="Write a comment..."></textarea>
+              <div style="display:flex; justify-content:flex-end; margin-top:8px;">
+                <button id="postComment" class="btn-primary">Post comment</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Favourites -->
+      <section id="favsView" class="view" style="display:none">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <div class="section-title">Your Favourites</div>
+        </div>
+
+        <div class="tabs">
+          <div class="tab active" data-favtab="games">Liked Games</div>
+          <div class="tab" data-favtab="songs">Liked Songs</div>
+        </div>
+
+        <div id="favsGames" class="favs-section">
+          <div class="games-grid" id="favsGamesGrid"></div>
+        </div>
+        <div id="favsSongs" class="favs-section" style="display:none">
+          <div class="song-list" id="favsSongsList"></div>
+        </div>
+      </section>
+
+      <!-- Upload Page -->
+      <section id="uploadView" class="view" style="display:none">
+        <div class="section-title">Upload a Song</div>
+        <form id="uploadForm" style="margin-top:16px; display:flex;flex-direction:column; gap:14px; max-width:600px;">
+          <label>
+            Select Game
+            <select id="uploadGame" class="select">
+              <option value="">— Choose Game —</option>
+            </select>
+          </label>
+          <label>
+            Song Title
+            <input id="uploadTitle" type="text" class="select" />
+          </label>
+          <label>
+            Year
+            <input id="uploadYear" type="number" class="select" />
+          </label>
+          <label>
+            File
+            <input id="uploadFile" type="file" class="select" />
+          </label>
+          <button type="submit" class="btn-primary">Submit Upload</button>
+        </form>
+      </section>
+
+    </main>
+
+    <footer class="site-footer light-panel">
+      &copy; 2025 VGM Library — All rights reserved.
+    </footer>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

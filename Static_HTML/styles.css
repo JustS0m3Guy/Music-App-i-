@@ -1,0 +1,157 @@
+:root{
+  --black: #000000;
+  --navy: #14213D;
+  --accent: #FCA311;
+  --light: #E5E5E5;
+  --white: #FFFFFF;
+
+  --page-width: 1200px;
+  --card-size: 220px;
+  --gap: 18px;
+  --radius: 10px;
+}
+
+/* SITE BACKGROUND - fixed so content scrolls over it */
+.site-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  background: linear-gradient(135deg, var(--navy) 0%, var(--black) 100%);
+  background-attachment: fixed;
+  background-size: cover;
+}
+
+/* Page base (content panels are lighter to use more of your palette) */
+*{ box-sizing: border-box; }
+html,body { height: 100%; margin: 0; padding: 0; font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, Arial; }
+.wrap { max-width: var(--page-width); margin: 28px auto; padding: 20px; }
+
+/* NAV: light surface so we use white/E5E5E5 heavily */
+header.nav {
+  display:flex; align-items:center; justify-content:space-between; gap:12px;
+  background: linear-gradient(180deg, var(--white), var(--light));
+  border-radius: 12px;
+  padding: 12px 18px;
+  margin-bottom: 20px;
+  position: sticky; top: 16px; z-index: 50;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.18);
+  color: var(--navy);
+}
+.brand { display:flex; align-items:center; gap:14px; }
+.logo {
+  width:48px; height:48px; border-radius:8px;
+  background: linear-gradient(180deg, var(--navy), var(--black));
+  color: var(--white); display:flex; align-items:center; justify-content:center;
+  font-weight:700; font-family:"Poppins"; box-shadow: 0 6px 18px rgba(0,0,0,0.4);
+}
+.brand h1 { font-family: "Poppins"; font-size:18px; margin:0; color:var(--navy); }
+.muted { color: var(--navy); opacity: 0.8; font-size:13px; }
+
+/* Nav controls */
+.nav-controls { display:flex; align-items:center; gap:16px; flex:1; margin-left:18px; }
+.search {
+  flex:1; max-width:640px; display:flex; align-items:center; gap:8px;
+  background: var(--white); padding:8px 12px; border-radius:8px; border:1px solid rgba(20,33,61,0.06);
+}
+.search input { background:transparent; border:0; outline:none; color:var(--navy); font-size:14px; width:100%; }
+nav.links { display:flex; gap:10px; align-items:center; }
+.nav-btn {
+  background: transparent; border: 0; color: var(--navy); padding:8px 12px; border-radius:8px; cursor:pointer; font-weight:600;
+}
+.nav-btn.active { color: var(--white); background: var(--accent); box-shadow: 0 6px 14px rgba(252,163,17,0.18); }
+.profile .avatar { width:36px; height:36px; border-radius:50%; background: var(--navy); }
+
+/* Content */
+main.content { margin-top: 20px; color: var(--white); }
+
+/* LIGHT PANELS (use white/E5E5E5 heavily) */
+.light-panel { background: linear-gradient(180deg, var(--white), var(--light)); border-radius:12px; padding:18px; color:var(--navy); box-shadow: 0 8px 26px rgba(0,0,0,0.12); }
+
+/* Hero */
+.hero { display:flex; gap:18px; align-items:center; margin-bottom:22px; }
+.hero .left h2 { font-family:"Poppins"; margin:0 0 6px 0; font-size:28px; color:var(--navy); }
+.hero .left p { margin:0; color:rgba(20,33,61,0.8); }
+.hero .right { width:360px; height:140px; border-radius:10px; display:flex;align-items:center;justify-content:center; font-weight:700; font-family:"Poppins"; color:var(--white); background: linear-gradient(180deg, var(--accent), #e79b3e); box-shadow: 0 8px 20px rgba(252,163,17,0.12); }
+
+/* accent text */
+.accent-txt { color: var(--accent); font-weight:700; }
+
+/* Games grid & card (cards use the light palette) */
+.games-grid { display:grid; grid-template-columns: repeat(5, 1fr); gap:var(--gap); }
+.game-card {
+  width:100%; height:var(--card-size); border-radius:10px; overflow:hidden; position:relative; cursor:pointer;
+  background: linear-gradient(180deg, var(--white), var(--light));
+  border: 1px solid rgba(20,33,61,0.06);
+  display:flex; align-items:center; justify-content:center; box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+}
+.cover-placeholder {
+  width:220px; height:220px; border-radius:12px; background:var(--white); display:flex;align-items:center;justify-content:center;color:var(--navy); font-weight:700;
+}
+.game-card .placeholder { width:86%; height:86%; background:var(--white); display:flex;align-items:center;justify-content:center;color:var(--navy); font-weight:700; }
+
+/* overlay: slides up and uses the navy color with white text (contrast) */
+.game-card .overlay {
+  position:absolute; left:0; right:0; bottom:0; height:40%;
+  background: linear-gradient(180deg, rgba(20,33,61,0.0), rgba(20,33,61,0.86));
+  display:flex; align-items:center; justify-content:center;
+  transform: translateY(100%); transition: transform 260ms ease, opacity 260ms ease; opacity:0;
+  color: var(--white); font-weight:600; font-family:"Poppins";
+}
+.game-card:hover .overlay { transform: translateY(0%); opacity:1; }
+
+/* Song list (light surfaces with navy text) */
+.song-list { margin-top: 18px; border-radius: 10px; overflow:hidden; background: var(--white); border:1px solid rgba(20,33,61,0.06); color:var(--navy); }
+.song-row {
+  display:grid; grid-template-columns: 64px 1fr 100px 80px; gap:12px; align-items:center; padding:10px 16px; border-bottom:1px solid rgba(20,33,61,0.04);
+}
+.song-row:hover { background: linear-gradient(90deg, rgba(250,250,250,1), rgba(245,245,245,1)); }
+.song-meta { font-size:15px; color:var(--navy); }
+.song-duration { color: rgba(20,33,61,0.6); text-align:right; }
+.song-actions { display:flex; gap:8px; justify-content:flex-end; align-items:center; }
+
+/* Play button (navy outline on white) */
+.btn-play { width:40px; height:40px; border-radius:8px; background:transparent; border:1px solid rgba(20,33,61,0.08); display:flex; align-items:center; justify-content:center; cursor:pointer; color:var(--navy); }
+
+/* Heart (outline navy on white; accent when active) */
+.heart { width:34px; height:34px; border-radius:8px; display:flex; align-items:center; justify-content:center; cursor:pointer; border:1px solid rgba(20,33,61,0.06); color:var(--navy); background:transparent; }
+.heart svg { display:block; }
+.heart.active { background: var(--accent); color: var(--navy); border-color: rgba(252,163,17,0.15); box-shadow: 0 6px 14px rgba(252,163,17,0.12); }
+
+/* Filters & selects (light surfaces) */
+.filters { display:flex; gap:12px; align-items:center; margin-bottom:14px; }
+.select { padding:8px 10px; border-radius:8px; background:var(--white); border:1px solid rgba(20,33,61,0.06); color:var(--navy); font-size:14px; }
+
+/* Comments: lighter panel and navy text */
+.comments { margin-top:18px; padding:16px; background: linear-gradient(180deg, var(--white), var(--light)); border-radius:10px; border:1px solid rgba(20,33,61,0.06); color:var(--navy); }
+.comment { display:flex; gap:12px; margin-bottom:12px; }
+.comment .avatar { width:44px; height:44px; border-radius:50%; background: var(--navy); flex-shrink:0; color: var(--white); display:flex; align-items:center; justify-content:center; font-weight:700; }
+.comment .body { flex:1; }
+.comment .meta { font-size:13px; color: rgba(20,33,61,0.6); margin-bottom:6px; }
+.comment .text { background: rgba(20,33,61,0.02); padding:10px; border-radius:8px; color:var(--navy); }
+.comment .actions { margin-top:6px; color: var(--navy); font-size:13px; display:flex; gap:12px; align-items:center; }
+.reply { margin-left:56px; margin-top:10px; }
+
+/* Tabs & buttons */
+.tabs { display:flex; gap:8px; margin-bottom:12px; }
+.tab { padding:8px 12px; border-radius:8px; background: transparent; border: 1px solid rgba(20,33,61,0.06); cursor:pointer; color:var(--navy); }
+.tab.active { background:var(--accent); color:var(--navy); border-color:var(--accent); }
+.btn-primary {
+  background: var(--accent); color: var(--navy); padding:8px 12px; border-radius:8px; border: none; cursor:pointer; font-weight:700;
+  box-shadow: 0 6px 18px rgba(252,163,17,0.12);
+}
+
+/* Inputs */
+.comment-input { width:100%; border-radius:8px; padding:10px; background:var(--white); color:var(--navy); border:1px solid rgba(20,33,61,0.06); }
+
+/* Footer: light panel */
+footer.site-footer {
+  margin-top:28px; font-size:13px; color:var(--navy);
+  padding:12px;
+  border-radius:8px;
+  background: linear-gradient(180deg, var(--white), var(--light));
+  border:1px solid rgba(20,33,61,0.06);
+}
+
+/* Small helpers */
+.small { font-size:13px; color:var(--navy); }
+.section-title { font-family:"Poppins"; font-size:20px; margin:6px 0 12px 0; color:var(--navy); }
