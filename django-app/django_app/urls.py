@@ -11,8 +11,10 @@ from app import forms, views
 
 urlpatterns = [
     path('', views.home, name='home'),
+    path('api/get-games/', views.get_games, name='get_games'),
     path('contact/', views.contact, name='contact'),
     path('about/', views.about, name='about'),
+    path('games/<int:gameID>/', views.game_detail, name='game_detail'),
     path('login/',
          LoginView.as_view
          (

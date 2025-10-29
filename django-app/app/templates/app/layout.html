@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<!-- <html>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,10 +8,22 @@
     <link rel="stylesheet" type="text/css" href="{% static 'app/content/bootstrap.min.css' %}" />
     <link rel="stylesheet" type="text/css" href="{% static 'app/content/site.css' %}" />
     <script src="{% static 'app/scripts/modernizr-2.6.2.js' %}"></script>
-</head>
+</head> -->
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <!-- <meta name="viewport" content="width=1200" /> -->
+  <title>{{ title }}</title>
 
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+  <!-- Styles -->
+  {% block styles %}{% endblock %}
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'app/content/styles.css' %}">
+</head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
+    <!-- <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -30,14 +42,42 @@
                 {% include 'app/loginpartial.html' %}
             </div>
         </div>
-    </div>
+    </div> -->
+<div class="site-bg" aria-hidden="true"></div>
 
-    <div class="container body-content">
-{% block content %}{% endblock %}
-        <hr/>
-        <footer>
-            <p>&copy; {{ year }} - My Django Application</p>
-        </footer>
+  <div class="wrap">
+    <header class="nav" role="banner">
+      <div class="brand">
+        <div class="logo">VGM</div>
+        <div>
+          <h1>VGM Library</h1>
+          <div class="muted small">Playful • Streaming-style • Desktop</div>
+        </div>
+      </div>
+
+      <div class="nav-controls">
+        <div class="search" role="search">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" style="opacity:0.8"><path d="M21 21l-4.35-4.35" stroke="#14213D" stroke-width="1.6" stroke-linecap="round"/></svg>
+          <input id="globalSearch" placeholder="Search games or songs..." aria-label="Search games or songs" />
+        </div>
+
+        {% include 'app/loginpartial.html' %}
+
+      </div>
+    </header>
+
+        <div class="container body-content">
+            <div class="row">
+                <div class="col-md-12">
+                    {% block content %}{% endblock %}
+                </div>
+            </div>
+            <hr/>
+            
+            <footer class="site-footer light-panel">
+            <p>&copy; 2025 VGM Library — All rights reserved.</p>
+            </footer>
+        </div>
     </div>
 
     <script src="{% static 'app/scripts/jquery-1.10.2.js' %}"></script>

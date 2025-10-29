@@ -1,0 +1,33 @@
+{% include 'app/layout.html' %}
+
+{% block content%}
+<main class="content" id="app">
+<section id="gameView" class="view">
+        <button id="backToBrowse" class="nav-btn">← Back to Browse</button>
+        <div style="display:flex; gap:20px; align-items:center; margin-top:12px;">
+          <div class="cover-placeholder">No Image</div>
+          <div>
+            <h2 id="gameTitle" style="font-family:'Poppins'"></h2>
+            <div class="muted" id="gameMeta"></div>
+          </div>
+        </div>
+
+        <div style="margin-top:18px;">
+          <div class="song-list" id="songList"></div>
+
+          <div class="comments" id="commentsSection">
+            <div class="section-title">Comments</div>
+            <div id="commentsList"></div>
+
+            <div style="margin-top:12px;">
+              <textarea id="commentInput" rows="3" class="comment-input" placeholder="Write a comment..."></textarea>
+              <div style="display:flex; justify-content:flex-end; margin-top:8px;">
+                <button id="postComment" class="btn-primary">Post comment</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+</main>
+
+{% endblock %}

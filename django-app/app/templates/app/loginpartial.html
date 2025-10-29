@@ -1,16 +1,25 @@
+<nav class="links" role="navigation" aria-label="Main navigation">
+  <button class="nav-btn active" data-route="home">Browse</button>
+  <button class="nav-btn" data-route="upload">Upload</button>
 {% if user.is_authenticated %}
-<form id="logoutForm" action="/logout/" method="post" class="navbar-right">
+<!-- <form id="logoutForm" action="/logout/" method="post" class="navbar-right">
     {% csrf_token %}
     <ul class="nav navbar-nav navbar-right">
         <li><span class="navbar-brand">Hello {{ user.username }}!</span></li>
         <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
     </ul>
-</form>
+</form> -->
+          <button class="nav-btn" data-route="favs">Favourites</button>
+        </nav>
+
+        <div class="profile">
+          <div class="avatar" title="Profile"></div>
+        </div>
 
 {% else %}
 
-<ul class="nav navbar-nav navbar-right">
-    <li><a href="{% url 'login' %}">Log in</a></li>
-</ul>
+    <a href="{% url 'login' %}">Log in</a>
+
+    </nav>
 
 {% endif %}

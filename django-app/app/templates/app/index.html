@@ -1,33 +1,129 @@
-{% extends "app/layout.html" %}
+    {% extends 'app/layout.html' %}
 
+    {% block styles %}
+    {% load static %}
+
+    <script src="{% static 'app/scripts/index.js' %}"></script>
+
+    <link rel="stylesheet" href="{% static 'app/content/styles.css' %}">
+{% endblock %}
 {% block content %}
+    <main class="content" id="app">
 
-<div class="jumbotron">
-    <h1>Django</h1>
-    <p class="lead">Django is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="https://www.djangoproject.com/" class="btn btn-primary btn-large">Learn more &raquo;</a></p>
-</div>
+      <!-- Home / Games Grid -->
+      <section id="homeView" class="view">
+  <header class="hero light-panel">
+    <div class="left">
+      <h2>Featured Games & Soundtracks</h2>
+      <p>
+        Discover soundtracks by game, year or type — click a game for its song list.
+        <strong class="accent-txt">Heart</strong> to save favourites.
+      </p>
+    </div>
+    <div class="right accent-box">GOAT</div>
+  </header>
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            Django gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="https://djangobook.com/django-tutorials/">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>The Python Package Index is a repository of software for the Python programming language.</p>
-        <p><a class="btn btn-default" href="https://pypi.org/">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Microsoft Azure</h2>
-        <p>You can easily publish to Microsoft Azure using Visual Studio. Find out how you can host your application using a free trial today.</p>
-        <p><a class="btn btn-default" href="http://azure.microsoft.com">Learn more &raquo;</a></p>
-    </div>
-</div>
+  <section>
+    <h3 class="section-title">All Games</h3>
+    <form class="filters">
+      <select id="filterType" onchange="fetchGames()" class="select" aria-label="Filter by game type">
+        <option value="">All genre</option>
+        {% for genre in game_genres %}
+          <option value="{{ genre }}">{{ genre }}</option>
+        {% endfor %}
+      </select>
+      <select id="filterYear" onchange="fetchGames()" class="select" aria-label="Filter by year">
+        <option value="">All years</option>
+        {% for year in game_years %}
+          <option value="{{ year }}">{{ year }}</option>
+        {% endfor %}
+      </select>
+      <button id="clearFilters" onclick="ClearFilters()" class="tab" type="button">Clear filters</button>
+    </form>
 
+    <div class="games-grid" id="gamesGrid" aria-live="polite">
+
+    </div>
+  </section>
+</section>
+
+
+      <!-- Game Detail / Songs + Comments -->
+     <section id="gameView" class="view" hidden>
+  <button id="backToBrowse" class="nav-btn">← Back to Browse</button>
+
+  <header class="game-header" style="display:flex; gap:20px; align-items:center; margin-top:12px;">
+    <div class="cover-placeholder">No Image</div>
+    <div>
+      <h2 id="gameTitle" style="font-family:'Poppins'"></h2>
+      <p class="muted" id="gameMeta"></p>
+    </div>
+  </header>
+
+  <main style="margin-top:18px;">
+    <section class="song-list" id="songList"></section>
+
+    <section class="comments" id="commentsSection">
+      <h3 class="section-title">Comments</h3>
+      <div id="commentsList"></div>
+
+      <form class="comment-form" style="margin-top:12px;">
+        <textarea id="commentInput" rows="3" class="comment-input" placeholder="Write a comment..."></textarea>
+        <div style="display:flex; justify-content:flex-end; margin-top:8px;">
+          <button id="postComment" class="btn-primary" type="submit">Post comment</button>
+        </div>
+      </form>
+    </section>
+  </main>
+</section>
+
+
+      <!-- Favourites -->
+  <section id="favsView" class="view" hidden>
+    <header class="favs-header" style="display:flex; justify-content:space-between; align-items:center;">
+      <h2 class="section-title">Your Favourites</h2>
+    </header>
+
+  <nav class="tabs" aria-label="Favourites Tabs">
+    <button class="tab active" data-favtab="games" type="button">Liked Games</button>
+    <button class="tab" data-favtab="songs" type="button">Liked Songs</button>
+  </nav>
+
+  <section id="favsGames" class="favs-section">
+    <div class="games-grid" id="favsGamesGrid"></div>
+  </section>
+
+  <section id="favsSongs" class="favs-section" hidden>
+    <div class="song-list" id="favsSongsList"></div>
+  </section>
+</section>
+
+
+      <!-- Upload Page -->
+      <section id="uploadView" class="view" style="display:none">
+        <div class="section-title">Upload a Song</div>
+        <form id="uploadForm" style="margin-top:16px; display:flex;flex-direction:column; gap:14px; max-width:600px;">
+          <label>
+            Select Game
+            <select id="uploadGame" class="select">
+              <option value="">— Choose Game —</option>
+            </select>
+          </label>
+          <label>
+            Song Title
+            <input id="uploadTitle" type="text" class="select" />
+          </label>
+          <label>
+            Year
+            <input id="uploadYear" type="number" class="select" />
+          </label>
+          <label>
+            File
+            <input id="uploadFile" type="file" class="select" />
+          </label>
+          <button type="submit" class="btn-primary">Submit Upload</button>
+        </form>
+      </section>
+
+    </main>
 {% endblock %}
