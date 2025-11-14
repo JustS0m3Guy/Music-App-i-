@@ -1,0 +1,55 @@
+/* --- Grid/List Toggle Buttons --- */
+.view-toggle {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.view-btn {
+  background: var(--white);
+  color: var(--navy);
+  border: 1px solid rgba(20, 33, 61, 0.1);
+  border-radius: 8px;
+  padding: 6px 10px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.view-btn.active {
+  background: var(--accent);
+  color: var(--navy);
+  border-color: var(--accent);
+}
+
+/* --- List View Layout --- */
+.games-grid.list-view {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.games-grid.list-view .game-card {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  height: 100px;
+  width: 100%;
+  text-align: left;
+  padding: 12px 18px;
+}
+
+.games-grid.list-view .placeholder {
+  width: 80px;
+  height: 80px;
+  margin-right: 18px;
+}
+
+.games-grid.list-view .overlay {
+  position: static;
+  transform: none;
+  opacity: 1;
+  background: none;
+  color: var(--navy);
+}

@@ -2,7 +2,7 @@
 
 {% block content %}
 
-<h2>{{ title }}</h2>
+<!-- <h2>{{ title }}</h2>
 <div class="row">
     <div class="col-md-8">
         <section id="loginForm">
@@ -37,8 +37,23 @@
     <div class="col-md-4">
         <section id="socialLoginForm"></section>
     </div>
-</div>
+</div> -->
 
+<main class="content" role="main">
+      <div class="login-box">
+        <h2>Welcome!</h2>
+            <form action="." method="post" class="form-horizontal">
+                {% csrf_token %}
+
+                {{form.as_p}}
+            <input type="submit" value="Login" />
+            </form>
+            <p></p>
+        <div class="signup-link">
+          <p>Don't have an account? <a href="{% url 'register' %}">Sign up here</a></p>
+        </div>
+      </div>
+    </main>
 {% endblock %}
 
 

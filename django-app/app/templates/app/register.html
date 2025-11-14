@@ -1,0 +1,39 @@
+{% extends "app/layout.html" %}
+
+{% block content %}
+
+<main class="content" role="main">
+    <div class="register-box">
+        <form action="." method="post" class="form-horizontal">
+            {% csrf_token %}
+            <h2>{{ title }}</h2>
+
+            {% for field in form %}
+            <p>
+                {% if field.errors %}
+            <ul class="errorlist">
+                {% for error in field.errors %}
+                <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+            {{ field.label_tag }} {{ field }}
+            </p>
+            {% endfor %}
+            <button type="submit">Register</button>
+        </form>
+        <div class="login-link">
+            <p>Already have an account? <a href="{% url 'login' %}">Log in here</a></p>
+        </div>
+    </div>
+</main>
+
+{% endblock %}
+
+
+{% block scripts %}
+
+{% load static %}
+<script src="{% static 'app/scripts/jquery.validate.min.js' %}"></script>
+
+{% endblock %}

@@ -4,9 +4,11 @@ Definition of views.
 
 from datetime import datetime
 from typing import Any
-from .models import Games
+from .models import Games, Songs
 from django.shortcuts import render
 from django.http import HttpRequest
+from django.contrib.auth import login, authenticate
+from .forms import RegisterForm, LoginForm
 
 def home(request):
     games= Games.objects.all()
@@ -25,15 +27,101 @@ def home(request):
 
         }
     )
+def loginView(request):
+    """Renders the login page."""
+    assert isinstance(request, HttpRequest)
+    if request.method == "POST":
+        form = LoginForm(request, data=request.POST)
+        if form.is_valid():
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            user = authenticate(username=username, password=password)
+            login(request, user)
+            return render(
+                request,
+                'app/index.html',
+                {
+                    'title':'Login Successful',
+                    'year':datetime.now().year,
+                }
+            )
+        else:
+            return render(
+                request,
+                'app/login.html',
+                {
+                    'title':'Log in',
+                    'year':datetime.now().year,
+                    'form': form,
+                }
+            )
+    return render(
+        request,
+        'app/login.html',
+        {
+            'title':'Log in',
+            'year':datetime.now().year,
+            'form': LoginForm(),
+        }
+    )
+
+def register(request):
+    """Renders the register page."""
+    assert isinstance(request, HttpRequest)
+    if request.method == "POST":
+        form = RegisterForm(request.POST)
+        if form.is_valid():
+            user = form.save(commit=False)
+            user.usename = form.cleaned_data['username']
+            user.email = form.cleaned_data['email']
+            user.set_password(form.cleaned_data['password1'])
+            user.save()
+            login(request, user)
+
+
+            # Redirect to a success page.
+            return render(
+                request,
+                'app/register_success.html',
+                {
+                    'title':'Registration Successful',
+                    'year':datetime.now().year,
+                }
+            )
+        else:
+            return render(
+                request,
+                'app/register.html',
+                {
+                    'title':'Register',
+                    'year':datetime.now().year,
+                    'form': form,
+                }
+            )
+    if request.method == "GET":
+        form=RegisterForm()
+        return render(
+            request,
+            'app/register.html',
+            {
+                'title':'Register',
+                'year':datetime.now().year,
+                'form': form,
+            }
+        )
+    
 
 def game_detail(request: HttpRequest, gameID: int) -> Any:
     assert isinstance(request, HttpRequest)
     game = Games.objects.get(gameID=gameID)
+    songs = Songs.objects.filter(gameID=gameID)
     return render(
         request,
         'app/game_detail.html',
         {
             'game': game,
+            'songs': songs,
+            
         }
     )
 
@@ -53,18 +141,7 @@ def get_games(request: HttpRequest) -> Any:
             'games': games.order_by('releaseYear').reverse(),
         }
     )
-def contact(request):
-    """Renders the contact page."""
-    assert isinstance(request, HttpRequest)
-    return render(
-        request,
-        'app/contact.html',
-        {
-            'title':'Contact',
-            'message':'Your contact page.',
-            'year':datetime.now().year,
-        }
-    )
+
 
 def about(request):
     """Renders the about page."""
