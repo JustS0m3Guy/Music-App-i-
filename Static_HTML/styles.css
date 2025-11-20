@@ -155,3 +155,53 @@ footer.site-footer {
 /* Small helpers */
 .small { font-size:13px; color:var(--navy); }
 .section-title { font-family:"Poppins"; font-size:20px; margin:6px 0 12px 0; color:var(--navy); }
+
+/* Auth split layout */
+.auth-layout {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: 32px;
+  align-items: stretch;
+}
+
+.auth-visual {
+  position: relative;
+  overflow: hidden;
+  border-radius: 16px;
+  background: #e9eef6; /* fallback color */
+  box-shadow: 0 10px 24px rgba(0,0,0,0.08);
+  min-height: 520px; /* adjust as needed */
+}
+
+.auth-visual img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.auth-form {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end; /* push the form to the right */
+}
+
+/* Keep the form a nice width */
+.login-box {
+  width: 100%;
+  max-width: 420px;
+  margin-left: auto;
+}
+
+/* Optional: stack on narrow widths (if you later change the meta viewport) */
+@media (max-width: 900px) {
+  .auth-layout {
+    grid-template-columns: 1fr;
+  }
+  .auth-form {
+    justify-content: center;
+  }
+  .auth-visual {
+    min-height: 260px;
+  }
+}
