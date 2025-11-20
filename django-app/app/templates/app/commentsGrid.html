@@ -1,0 +1,7 @@
+{% load static %}
+{% for comment in comments %}
+<article>
+    <div>{{ comments.user.username }}</div>
+    <div>{{ comment.commenttext }}</div>
+</article>
+{% endfor %}    

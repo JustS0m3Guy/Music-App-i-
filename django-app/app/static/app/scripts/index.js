@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () =>{
-      const viewButtons = document.querySelectorAll('.view-btn');
+const viewButtons = document.querySelectorAll('.view-btn');
   const gamesGrid = document.querySelector('.games-grid');
 
   if (viewButtons && gamesGrid) {
@@ -58,6 +58,9 @@ async function fetchGames() {
     const gamesGrid = document.getElementById('gamesGrid').innerHTML = await response.text();
 }
 
+async function fetchComments(gameId) {
+
+}
 
 // document.getElementById('filterType').addEventListener('change', (e) => {
 //     const genre = e.target.value;

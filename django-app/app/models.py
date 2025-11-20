@@ -50,5 +50,12 @@ class UserBadges(models.Model):
     userID = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, default=None) #foreign
     badgeTypeID = models.ForeignKey(BadgeTypes, on_delete=models.SET_NULL, null=True, blank=True, default=None) #foreign
 
+class Comments(models.Model):
+    commentID = models.BigAutoField(unique=True, primary_key=True)
+    userID = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, default=None) #foreign
+    songID = models.ForeignKey(Songs, on_delete=models.SET_NULL, null=True, blank=True, default=None) #foreign
+    commentText = models.TextField(max_length=512 ,null=False, default='')
+    timestamp = models.DateTimeField(auto_now_add=True)
+
 
 # Create your models here.
