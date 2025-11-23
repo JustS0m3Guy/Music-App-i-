@@ -390,17 +390,21 @@ main.content {
   margin-bottom: 12px;
 }
 
+.commentGrid {
+    display: grid;
+}
+
 .comment .avatar {
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  background: var(--navy);
-  flex-shrink: 0;
-  color: var(--white);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 700;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--navy);
+    flex-shrink: 0;
+    color: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
 }
 
 .comment .body {
@@ -471,7 +475,8 @@ main.content {
 .comment-input {
     resize: none;
     width: 100%;
-    height:35px;
+    overflow: hidden;
+    height: 35px;
     border-radius: 8px;
     padding-right: 10px;
     padding-left: 10px;

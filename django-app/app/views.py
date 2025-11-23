@@ -4,11 +4,11 @@ Definition of views.
 
 from datetime import datetime
 from typing import Any
-from .models import Games, Songs
+from .models import Games, Songs, Comments, User
 from django.shortcuts import render
-from django.http import HttpRequest
+from django.http import HttpRequest, JsonResponse
 from django.contrib.auth import login, authenticate
-from .forms import RegisterForm, LoginForm
+from .forms import RegisterForm, LoginForm#, CommentForm
 
 def home(request):
     games= Games.objects.all()
@@ -109,7 +109,48 @@ def register(request):
                 'form': form,
             }
         )
-    
+
+# create a path in urls.py                                  done
+# make a function for it with a post request                done
+# fetch data from json from the request                     done
+# create a new comment object and save it to the database   
+# support both get and post requests                        
+# after packiging into a json send it to the api            
+# if it's a get then return all comments                    done
+# modify the game_detail.js to fetch comments               done
+
+#@login_required
+def get_comments(request, gameID: int):
+    """Renders the comment page."""
+    assert isinstance(request, HttpRequest)
+    if request.method == "POST":
+        comment = request.POST.get('commentText', '')
+    # form = CommentForm(request.POST)
+    # if request.method == "POST":
+    #     if form.is_valid():
+    #         comment = form.save(commit=False)
+    #         comment.userID = request.user['userID']
+    #         form.gameID = form.cleaned_data['gameID']
+    #         form.commentText = form.cleaned_data['commentText']
+
+    #         comment.save()
+    #         return render(
+    #             request,
+    #             'app/.',
+    #             {
+    #                 'title':'Comment Posted',
+    #             }
+    #         )
+    if request.method == "GET":
+        comments = Comments.objects.all().filter(gameID=gameID)
+        
+        return render(
+            request,
+            'app/commentsGrid.html',
+            {
+                'comments': comments
+            }
+        )
 
 def game_detail(request: HttpRequest, gameID: int) -> Any:
     assert isinstance(request, HttpRequest)

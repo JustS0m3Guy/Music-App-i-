@@ -1,7 +1,8 @@
 {% load static %}
 {% for comment in comments %}
 <article>
-    <div>{{ comments.user.username }}</div>
-    <div>{{ comment.commenttext }}</div>
+    <div>{{ comment.user.username }}</div>
+    <div>{{ comment.commentTime }}</div>
+    <div>{{ comment.commentText }}</div>
 </article>
-{% endfor %}    
+{% endfor %}
