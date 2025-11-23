@@ -1,53 +1,63 @@
-    {% extends 'app/layout.html' %}
+{% extends 'app/layout.html' %}
 
-    {% block styles %}
-    {% load static %}
-    <script src="{% static 'app/scripts/game_detail.js' %}"></script>
-    {% endblock %}
+{% block styles %}
+{% load static %}
+<script src="{% static 'app/scripts/game_detail.js' %}"></script>
+<script src="https://www.youtube.com/iframe_api"></script>
+{% endblock %}
 
 {% block content %}
+
 <main class="content" id="app">
   <section id="gameView" class="view">
     <div style="display:flex; gap:20px; align-items:center; margin-top:12px;">
       {% load static %}
-      <div class="cover-placeholder"><img src="{% static 'app/media/spinning-fish.gif' %}" class="cover-placeholder" alt="Cover Image Placeholder"/></div>
+      <div class="cover-placeholder"><img src="{% static 'app/media/spinning-fish.gif' %}" class="cover-placeholder"
+          alt="Cover Image Placeholder" /></div>
       <div>
         <h2 id="gameTitle" style="font-family:'Poppins'">{{ game.title }}</h2>
         <div class="muted" id="gameMeta">{{game.genre}} • {{game.releaseYear}}</div>
       </div>
     </div>
+    
+    <div style="margin-top:18px;">
+      <div id="video-wrapper" style="display: none;">
+        <div id="youtube-player"></div>
+        <button id="close-video">Close</button>
+      </div>
+      <input type="hidden" style="display: none;" id="game-id" value="{{ game.gameID }}">
+      <ul class="song-list" id="songList">
+        {% for song in songs %}
+        <li class="song-row">
+          <button class="btn-play" onclick="playSong('{{ song.videoURL }}')">
+            &#x25B6;
+          </button>
+          <span class="song-meta">{{ song.songName }}</span>
+          <span class="song-year">{{ song.length }}</span>
+          <div class="heart" id="fav-{{ song.songID }}" onclick="AddToFavs({{ song.songID }})">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path
+                d="M20.8 4.6c-1.4-1.4-3.6-1.4-5 0L12 8.4 8.2 4.6c-1.4-1.4-3.6-1.4-5 0-1.4 1.4-1.4 3.6 0 5L12 21.5l8.8-11c1.4-1.4 1.4-3.6 0-5z">
+              </path>
+            </svg>
+          </div>
+        </li>
+        {% endfor %}
+      </ul>
+      <div class="comments" id="commentsSection">
+        <div class="section-title">Comments</div>
+        <div id="commentsList"></div>
 
-        <div style="margin-top:18px;">
-          <ul class="song-list" id="songList">
-            {% for song in songs %}
-            <li class="song-row">
-              <button class="btn-play" onclick="window.location.href='{{ song.videoURL }}'">
-                &#x25B6;
-              </button>
-              <span class="song-meta">{{ song.songName }}</span>
-              <span class="song-year">{{ song.length }}</span>
-              <div class="heart" onclick="AddToFavs({{ song.songID }})" >
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M20.8 4.6c-1.4-1.4-3.6-1.4-5 0L12 8.4 8.2 4.6c-1.4-1.4-3.6-1.4-5 0-1.4 1.4-1.4 3.6 0 5L12 21.5l8.8-11c1.4-1.4 1.4-3.6 0-5z"></path>
-              </svg>
-            </div>
-          </li>
-            {% endfor %}
-          </ul>
-
-          <div class="comments" id="commentsSection">
-            <div class="section-title">Comments</div>
-            <div id="commentsList"></div>
-
-            <div style="margin-top:12px;">
-              <textarea id="commentInput" rows="3" class="comment-input" placeholder="Write a comment..."></textarea>
-              <div style="display:flex; justify-content:flex-end; margin-top:8px;">
-                <button id="postComment" class="btn-primary">Post comment</button>
-              </div>
-            </div>
+        <div style="margin-top:12px;">
+          <textarea id="commentInput" rows="3" class="comment-input" placeholder="Write a comment..."></textarea>
+          <div style="display:flex; justify-content:flex-end; margin-top:8px;">
+            <button id="postComment" class="btn-primary">Post comment</button>
           </div>
         </div>
-      </section>
+      </div>
+    </div>
+  </section>
 </main>
 
 {% endblock %}

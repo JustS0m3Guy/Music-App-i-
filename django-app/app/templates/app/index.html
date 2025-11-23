@@ -27,13 +27,13 @@
     <h3 class="section-title">All Games</h3>
     <div class="display-options">
     <form class="filters">
-      <select id="filterType" onchange="fetchGames()" class="select" aria-label="Filter by game type">
+      <select id="filterType" onchange="SearchGames()" class="select" aria-label="Filter by game type">
         <option value="">All genre</option>
         {% for genre in game_genres %}
           <option value="{{ genre }}">{{ genre }}</option>
         {% endfor %}
       </select>
-      <select id="filterYear" onchange="fetchGames()" class="select" aria-label="Filter by year">
+      <select id="filterYear" onchange="SearchGames()" class="select" aria-label="Filter by year">
         <option value="">All years</option>
         {% for year in game_years %}
           <option value="{{ year }}">{{ year }}</option>
@@ -85,25 +85,7 @@
 
 
       <!-- Favourites -->
-  <section id="favsView" class="view" hidden>
-    <header class="favs-header" style="display:flex; justify-content:space-between; align-items:center;">
-      <h2 class="section-title">Your Favourites</h2>
-    </header>
-
-  <nav class="tabs" aria-label="Favourites Tabs">
-    <button class="tab active" data-favtab="games" type="button">Liked Games</button>
-    <button class="tab" data-favtab="songs" type="button">Liked Songs</button>
-  </nav>
-
-  <section id="favsGames" class="favs-section">
-    <div class="games-grid" id="favsGamesGrid"></div>
-  </section>
-
-  <section id="favsSongs" class="favs-section" hidden>
-    <div class="song-list" id="favsSongsList"></div>
-  </section>
-</section>
-
+  
 
       <!-- Upload Page -->
       <section id="uploadView" class="view" style="display:none">

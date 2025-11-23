@@ -26,8 +26,13 @@ SECRET_KEY = environ.get('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['*', 'localhost', '127.0.0.1']
 AUTH_USER_MODEL = "app.User"  # new
+CSRF_TRUSTED_ORIGINS = [
+    'http://localhost:80',
+    'http://localhost',
+    'http://127.0.0.1',
+]
 
 
 # Application references
@@ -80,12 +85,16 @@ ASGI_APPLICATION = 'django_app.asgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 DATABASES = {
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.mysql',
+    #     'NAME': environ.get('DB_NAME'),
+    #     'USER': environ.get('DB_USER'),
+    #     'PASSWORD': environ.get('DB_PASSWORD'),
+    #     'HOST': environ.get('DB_HOST'),
+    # }
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': environ.get('DB_NAME'),
-        'USER': environ.get('DB_USER'),
-        'PASSWORD': environ.get('DB_PASSWORD'),
-        'HOST': environ.get('DB_HOST'),
+    'ENGINE': 'django.db.backends.sqlite3',
+    'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
 

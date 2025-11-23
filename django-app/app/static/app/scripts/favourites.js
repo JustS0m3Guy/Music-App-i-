@@ -1,86 +1,130 @@
-document.addEventListener("DOMContentLoaded", () => {
-    const gameId = document.getElementById('game-id').value;
-    fetch(`/api/get-favs-per-game/${gameId}/`)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.json();
-        }
-        )
-        .then(data => {
-            const favsPerUserId = data.favs_per_user_id;
-            favsPerUserId.forEach(songId => {
-                const favElement = document.getElementById(`fav-${songId}`);
-                if (favElement) {
-                    favElement.classList.add('active');
-                }
-            });
-        })
-        .catch(error => {
-            console.error('There was a problem with the fetch operation:', error);
-        });
+document.addEventListener("DOMContentLoaded", async() => {
+  const navButtons = document.querySelectorAll(".nav-btn");
+  navButtons.forEach(b => b.classList.remove("active"));
+  const favsButton = document.getElementById("favs-button");
+  favsButton.classList.add("active");
+  await renderFavourites();
 
-    // attach play handlers for any .btn-play already on the page
-    document.querySelectorAll('.btn-play').forEach(btn => {
-        btn.addEventListener('click', (e) => {
-            // prefer data-video attribute, fallback to onclick in template that already calls playSong
-            const row = btn.closest('.song-row');
-            const url = row && row.dataset && row.dataset.video ? row.dataset.video : null;
-            if (url) playSong(url);
-        });
-    });
 });
 
 
+async function renderFavourites() {
+  // const favsGamesGrid = document.getElementById("favsGamesGrid");
+  // favsGamesGrid.innerHTML = "";
+  // games.forEach(g => {
+  //   if (favGames.has(g.id)) {
+  //     const card = document.createElement("div");
+  //     card.className = "game-card";
+  //     card.dataset.id = g.id;
+  //     const placeholder = document.createElement("div");
+  //     placeholder.className = "placeholder";
+  //     placeholder.textContent = "No Image";
+  //     card.appendChild(placeholder);
+  //     const overlay = document.createElement("div");
+  //     overlay.className = "overlay";
+  //     overlay.textContent = g.name;
+  //     card.appendChild(overlay);
+  //     card.addEventListener("click", () => showGame(g.id));
+  //     favsGamesGrid.appendChild(card);
+  //   }
+  // });
+
+  const favsSongsList = document.getElementById("favsSongsList");
+  favsSongsList.innerHTML = "";
+  await fetch(`/api/get-fav-songs/`)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    }
+    ).then(data => {
+      for (let s of data) {
+        const row = document.createElement("div"); row.className = "song-row";
+        // store video url on the row so handler can read it
+        row.dataset.video = s.videoURL || s.videoUrl || s.video || '';
+
+        const playCell = document.createElement("div"); 
+        const btn = document.createElement("button"); 
+        btn.className = "btn-play"; btn.textContent = "▶"; 
+        // attach play handler (uses playSong defined below)
+        btn.addEventListener("click", () => {
+          if (typeof playSong === 'function') playSong(row.dataset.video);
+          else console.warn('playSong not defined on this page.');
+        });
+        playCell.appendChild(btn);
+        const titleCell = document.createElement("div"); 
+        titleCell.className = "song-meta"; titleCell.textContent = s.songName; titleCell.onclick = () => { window.location.href = `/games/${s.gameID_id}/`; };
+        const actionsCell = document.createElement("div"); 
+        actionsCell.className = "song-actions";
+        const heart = document.createElement("div"); 
+        heart.className = "heart active";
+        heart.innerHTML = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6c-1.4-1.4-3.6-1.4-5 0L12 8.4 8.2 4.6c-1.4-1.4-3.6-1.4-5 0-1.4 1.4-1.4 3.6 0 5L12 21.5l8.8-11c1.4-1.4 1.4-3.6 0-5z"></path></svg>`;
+        heart.addEventListener("click", () => { AddToFavs(s.songID); });
+        actionsCell.appendChild(heart);
+        row.appendChild(playCell); row.appendChild(titleCell); row.appendChild(actionsCell);
+        favsSongsList.appendChild(row);
+      }
+    }
+    )
+    .catch(error => {
+      console.error('There was a problem with the fetch operation:', error);
+    });
+  
+}
+
+
+
 function getCookie(name) {
-    if (typeof name !== "string" || !name.trim()) {
-        console.error("Invalid cookie name");
-        return null;
-    }
-
-    // document.cookie returns a single string like "key1=value1; key2=value2"
-    const cookies = document.cookie.split(";");
-
-    for (let cookie of cookies) {
-        // Remove leading spaces
-        cookie = cookie.trim();
-
-        // Check if this cookie starts with the desired name
-        if (cookie.startsWith(name + "=")) {
-            // Decode in case the value was URL-encoded
-            return decodeURIComponent(cookie.substring(name.length + 1));
-        }
-    }
-
-    // Cookie not found
+  if (typeof name !== "string" || !name.trim()) {
+    console.error("Invalid cookie name");
     return null;
+  }
+
+  // document.cookie returns a single string like "key1=value1; key2=value2"
+  const cookies = document.cookie.split(";");
+
+  for (let cookie of cookies) {
+    // Remove leading spaces
+    cookie = cookie.trim();
+
+    // Check if this cookie starts with the desired name
+    if (cookie.startsWith(name + "=")) {
+      // Decode in case the value was URL-encoded
+      return decodeURIComponent(cookie.substring(name.length + 1));
+    }
+  }
+
+  // Cookie not found
+  return null;
 }
 async function AddToFavs(songId) {
-    const csrftoken = getCookie('csrftoken');
-    const response = await fetch(`/api/add-to-favs/${songId}/`, {
-        method: 'GET',
-        headers: {
-            'X-CSRFToken': csrftoken,
-            'Content-Type': 'application/json',
-        },
-        credentials: 'same-origin',
-    });
+  const csrftoken = getCookie('csrftoken');
+  const response = await fetch(`/api/add-to-favs/${songId}/`, {
+    method: 'GET',
+    headers: {
+      'X-CSRFToken': csrftoken,
+      'Content-Type': 'application/json',
+    },
+    credentials: 'same-origin',
+  });
 
-    if (!response.ok) {
-        console.error('Failed to update favs', response.status);
-        return;
-    }
-    else {
-        document.getElementById(`fav-${songId}`).classList.toggle('active');
-    }
+  if (!response.ok) {
+    console.error('Failed to update favs', response.status);
+    return;
+  }
+  else {
+    console.log('Favs updated successfully');
+    renderFavourites();
+    // document.getElementById(`fav-${songId}`).classList.toggle('active');
+  }
 
 
-    const btn = document.querySelector(`#fav-btn-${songId}`);
-    if (btn) {
-        if (data.status === 'added') btn.classList.add('favorited');
-        else btn.classList.remove('favorited');
-    }
+  const btn = document.querySelector(`#fav-btn-${songId}`);
+  if (btn) {
+    if (data.status === 'added') btn.classList.add('favorited');
+    else btn.classList.remove('favorited');
+  }
 }
 
 /* ---- new: YouTube player helpers ---- */

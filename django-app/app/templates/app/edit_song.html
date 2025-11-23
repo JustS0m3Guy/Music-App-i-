@@ -1,0 +1,19 @@
+{% extends "app/layout.html" %}
+
+{% block title %}Edit Song{% endblock %}
+
+{% block content %}
+<h2 class="mb-4">Edit Song</h2>
+<form method="post">
+    {% csrf_token %}
+    <label for="title" class="form-label">Title:</label>
+    <input type="text" id="title" name="title" class="form-control" value="{{ song.songName }}" required>
+    <label for="artist" class="form-label mt-3">Video URL:</label>
+    <input type="text" id="artist" name="artist" class="form-control" value="{{ song.videoURL }}" required>
+    <label for="album" class="form-label mt-3">Length:</label>
+    <input type="text" id="album" name="album" class="form-control" value="{{ song.length }}">
+    <label for="genre" class="form-label mt-3">Image URL:</label>
+    <input type="text" id="genre" name="genre" class="form-control" value="{{ song.imageURL }}">
+    <button type="submit" class="btn btn-primary">Save Changes</button>
+</form>
+{% endblock %}
