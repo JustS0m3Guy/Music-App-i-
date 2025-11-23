@@ -26,8 +26,13 @@ SECRET_KEY = environ.get('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['*', 'localhost', '127.0.0.1']
 AUTH_USER_MODEL = "app.User"  # new
+CSRF_TRUSTED_ORIGINS = [
+    'http://localhost:80',
+    'http://localhost',
+    'http://127.0.0.1',
+]
 
 
 # Application references
