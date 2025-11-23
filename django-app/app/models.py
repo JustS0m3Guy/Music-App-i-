@@ -31,6 +31,7 @@ class Games(models.Model):
     releaseYear = models.SmallIntegerField(null=True, blank=True)
     rating = models.FloatField(null=True, blank=True)
     genre = models.CharField(max_length=128, null=True, blank=True)
+    imageURL = models.URLField(max_length=512, null=True, blank=True, default='')
 
 class Songs(models.Model):
     songID = models.BigAutoField(unique=True, primary_key=True)
@@ -38,7 +39,6 @@ class Songs(models.Model):
     gameID = models.ForeignKey(Games, on_delete=models.SET_NULL, null=True, blank=True, default=None)
     videoURL = models.URLField(max_length=512, null=True, blank=True, default='')
     length = models.DurationField(null=True, blank=True)
-    imageURL = models.URLField(max_length=512, null=True, blank=True, default='')
 
 class FavSongs(models.Model):
     userID = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, default=None) #foreign

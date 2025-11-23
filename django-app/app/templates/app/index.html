@@ -14,13 +14,13 @@
       <section id="homeView" class="view">
   <header class="hero light-panel">
     <div class="left">
-      <h2>Featured Games & Soundtracks</h2>
+      <h2>Newest Games & Soundtracks</h2>
       <p>
         Discover soundtracks by game, year or type — click a game for its song list.
         <strong class="accent-txt">Heart</strong> to save favourites.
       </p>
     </div>
-    <div class="right accent-box">GOAT</div>
+    <div class="right accent-box" onclick="window.location.href='/games/{{ featuredGame.gameID }}'">{{ featuredGame.title }}</div>
   </header>
 
   <section>

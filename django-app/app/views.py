@@ -45,6 +45,7 @@ def edit_Game(request: HttpRequest, gameID: int) -> Any:
         game.releaseYear = request.POST.get('releaseYear', game.releaseYear)
         game.rating = request.POST.get('rating', game.rating)
         game.genre = request.POST.get('genre', game.genre)
+        game.imageURL = request.POST.get('imageURL', game.imageURL)
         game.save()
         return redirect('game_detail', gameID=game.gameID)
     # Logic for editing a game goes here
@@ -94,6 +95,7 @@ def home(request):
             # 'games': games.order_by('releaseYear').reverse(),
             'game_years': Games.objects.values_list('releaseYear', flat=True).distinct().order_by('releaseYear').reverse(), 
             'game_genres': Games.objects.values_list('genre', flat=True).distinct().order_by('genre'), 
+            'featuredGame': Games.objects.order_by('gameID').reverse().first(),
 
         }
     )
