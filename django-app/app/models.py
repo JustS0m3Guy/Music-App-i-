@@ -7,16 +7,18 @@ from django.contrib.auth.models import AbstractUser
 from django.utils.timezone import now
 
 
-class UserRoles(models.Model):
-    roleID = models.BigAutoField(unique=True, primary_key=True)
-    roleName = models.CharField(max_length=128, null=False, default='No Name')
 
 class User(AbstractUser):
+    ROLE_CHOICES = [
+        ('admin', 'Admin'),
+        ('member', 'Member'),
+        ('guest', 'Guest'),
+    ]
     userID = models.BigAutoField(unique=True, primary_key=True)
     username = models.CharField(max_length=128, unique=True, null=False, default='')
     email = models.EmailField(max_length=128, unique=True, null=False, default='')
     date_joined = models.DateTimeField(auto_now_add=True)
-    role = models.ForeignKey(UserRoles, on_delete=models.SET_NULL, null=True, blank=True, default=None)
+    role = models.CharField(max_length=10, choices=ROLE_CHOICES, default='guest')
     last_login = None
     first_name = None
     last_name = None
@@ -36,6 +38,7 @@ class Songs(models.Model):
     gameID = models.ForeignKey(Games, on_delete=models.SET_NULL, null=True, blank=True, default=None)
     videoURL = models.URLField(max_length=512, null=True, blank=True, default='')
     length = models.DurationField(null=True, blank=True)
+    imageURL = models.URLField(max_length=512, null=True, blank=True, default='')
 
 class FavSongs(models.Model):
     userID = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, default=None) #foreign
