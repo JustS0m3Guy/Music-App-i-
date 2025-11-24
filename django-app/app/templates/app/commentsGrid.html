@@ -1,8 +1,18 @@
 {% load static %}
 {% for comment in comments %}
 <article>
-    <div>{{ comment.user.username }}</div>
-    <div>{{ comment.commentTime }}</div>
-    <div>{{ comment.commentText }}</div>
+    <div class="comment">
+        <div class="avatar">
+            {{ comment.userID.username|slice:":1"|upper }}
+        </div>
+        <div class="body">
+            <div class="meta"> {{ comment.userID.username }} &bull; {{ comment.commentTime }}</div>
+            <div class="text">{{ comment.commentText }}</div>
+            <div class="actions">
+                <span>Like</span>
+                <span>Reply</span>
+            </div>
+        </div>
+    </div>
 </article>
 {% endfor %}
