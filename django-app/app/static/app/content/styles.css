@@ -387,7 +387,7 @@ main.content {
 .comment {
   display: flex;
   gap: 12px;
-  margin-bottom: 12px;
+  margin-bottom: 30px;
 }
 
 .commentGrid {

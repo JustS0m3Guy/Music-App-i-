@@ -9,18 +9,23 @@
 
 //}
 
-document.addEventListener('DOMContentLoaded', () => {
-    const postButton = document.getElementById('postComment');
-    fetchComments();
+document.addEventListener('DOMContentLoaded', async () => {
+    await fetchComments();
+    const form = document.getElementById('commentpost');
+    form.onsubmit = async (e) => {
+        e.preventDefault();
+        const formData = new FormData(form);
+        const response = await fetch('api/get-comments/', {
+            method: 'POST',
+            body: formData
+        });
+        if (response.ok) {
+            await fetchComments();
+            document.getElementById('commentText').value = '';
+        }
+    }
 });
 
-postButton.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    var jsonData = {};
-    formData.forEach((value, key) => jsonData[key] = value);
-    var json = JSON.stringify(jsonData);
-    console.log(json);
-});
 
 async function fetchComments() {
     let url = 'api/get-comments';

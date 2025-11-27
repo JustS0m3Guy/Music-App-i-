@@ -2,11 +2,12 @@
 Definition of views.
 """
 
+import json
 from datetime import datetime
 from typing import Any
 from .models import Games, Songs, Comments, User
 from django.shortcuts import render
-from django.http import HttpRequest, JsonResponse
+from django.http import HttpRequest, HttpResponse, JsonResponse
 from django.contrib.auth import login, authenticate
 from .forms import RegisterForm, LoginForm#, CommentForm
 
@@ -124,10 +125,20 @@ def get_comments(request, gameID: int):
     """Renders the comment page."""
     assert isinstance(request, HttpRequest)
     if request.method == "POST":
-        comment = request.POST.get('commentText', '')
+        json_data = json.loads(request.body)
+        comment_text = json_data.get('commentText', '')
+        user = request.user
+        # comment = Comments(
+        #    userID=user,
+        #    gameID = Games.objects.get(gameID=gameID),
+        #    commentText=comment_text,
+        #    commentTime=datetime.now()
+        #    ).save()
+        return HttpResponse(comment_text ,status=201)
+
 
     if request.method == "GET":
-        comments = Comments.objects.all().filter(gameID=gameID)
+        comments = Comments.objects.all().filter(gameID=gameID).order_by('commentTime').reverse()
         
         return render(
             request,
