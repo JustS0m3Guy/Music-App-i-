@@ -125,15 +125,15 @@ def get_comments(request, gameID: int):
     """Renders the comment page."""
     assert isinstance(request, HttpRequest)
     if request.method == "POST":
-        json_data = json.loads(request.body)
-        comment_text = json_data.get('commentText', '')
+        comment_text = json.dumps(request.POST)
+        comment_text = json.loads(comment_text)['commentData']
         user = request.user
-        # comment = Comments(
-        #    userID=user,
-        #    gameID = Games.objects.get(gameID=gameID),
-        #    commentText=comment_text,
-        #    commentTime=datetime.now()
-        #    ).save()
+        comment = Comments(
+           userID=user,
+           gameID = Games.objects.get(gameID=gameID),
+           commentText=comment_text,
+           commentTime=datetime.now()
+           ).save()
         return HttpResponse(comment_text ,status=201)
 
 
