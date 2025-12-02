@@ -11,11 +11,9 @@
   <button class="nav-btn" id="upload-button" data-route="upload">Upload</button>
           <button class="nav-btn" id="favs-button" data-route="favs" onclick="window.location.href='{% url 'favourites' %}'">Favourites</button>
         </nav>
-
-        <div class="profile">
-          <div class="avatar" title="Profile"></div>
-        </div>
-          <span class="muted small">Hello, {{ user.username }}!</span>
+        <!-- <div class="avatar" title="Profile"></div> -->
+        <!-- <div class="profile"></div> -->
+          <button class="nav-btn" id="profile-link" data-route="profile" onclick="window.location.href='{% url 'profile' %}'">Hello, {{ user.username }}!</button>
           <a href="javascript:document.getElementById('logoutForm').submit()">Log out</a>
           <form id="logoutForm" action="{% url 'logout' %}" method="post" style="display:none;">
               {% csrf_token %}
