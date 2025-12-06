@@ -109,24 +109,14 @@ def register(request):
                 'year':datetime.now().year,
                 'form': form,
             }
-        )
-
-# create a path in urls.py                                  done
-# make a function for it with a post request                done
-# fetch data from json from the request                     done
-# if it's a get then return all comments                    done
-# modify the game_detail.js to fetch comments               done
-# create a new comment object and save it to the database   
-# support both get and post requests                        
-# after packiging into a json send it to the api            
+        )        
 
 #@login_required
 def get_comments(request, gameID: int):
     """Renders the comment page."""
     assert isinstance(request, HttpRequest)
     if request.method == "POST":
-        comment_text = json.dumps(request.POST)
-        comment_text = json.loads(comment_text)['commentData']
+        comment_text = request.POST.get('commentData')
         user = request.user
         comment = Comments(
            userID=user,
