@@ -141,7 +141,7 @@ main.content { margin-top: 20px; color: var(--white); }
 }
 
 /* Inputs */
-.comment-input { width:100%; border-radius:8px; padding:10px; background:var(--white); color:var(--navy); border:1px solid rgba(20,33,61,0.06); }
+.comment-input { width:100%; border-radius:8px; padding:10px; background:var(--white); color:var(--navy); border:1px solid rgba(20,33,61,0.06); resize:none; }
 
 /* Footer: light panel */
 footer.site-footer {

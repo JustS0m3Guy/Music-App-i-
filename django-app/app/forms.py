@@ -3,6 +3,7 @@ Definition of forms.
 """
 
 from django import forms
+#from app.models import Comments
 from django.contrib.auth.forms import AuthenticationForm, AdminUserCreationForm, UserChangeForm, UserCreationForm
 from django.utils.translation import gettext_lazy as _
 
@@ -20,7 +21,7 @@ class CustomUserChangeForm(UserChangeForm):
     class Meta:
         model = User
         fields = ("username", "email")
-
+        
 
 class RegisterForm(UserCreationForm):
 
@@ -48,6 +49,13 @@ class LoginForm(AuthenticationForm):
     class Meta:
         model = User
         fields = ['username', 'password']
+
+
+# class CommentForm(forms.ModelForm):
+#     class Meta:
+#         model = Comments
+#         fields = ['userID', 'gameID', 'commentText']
+    
 
 class BootstrapAuthenticationForm(AuthenticationForm):
    """Authentication form which uses boostrap CSS."""

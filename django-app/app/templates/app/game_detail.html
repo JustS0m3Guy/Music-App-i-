@@ -24,7 +24,7 @@
       <div>
       {% endif %}
         <h2 id="gameTitle" style="font-family:'Poppins'">{{ game.title }}</h2>
-        <div class="muted" id="gameMeta">{{game.genre}} • {{game.releaseYear}}</div>
+        <div class="muted" id="gameMeta">{{game.genre}} &bull; {{game.releaseYear}}</div>
       </div>
     </div>
     
@@ -56,7 +56,18 @@
       <div class="comments" id="commentsSection">
         <div class="section-title">Comments</div>
         <div id="commentsList"></div>
-
+        <div style="margin-top:12px;">
+          <form method="post" action="api/get-comments/" id="commentpost">
+            {% csrf_token %}
+            <textarea id="commentText" name="commentData" rows="3" class="comment-input" placeholder="Write a comment..." oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"'></textarea>
+            <div style="display:flex; justify-content:flex-end; margin-top:8px;">
+              <button id="postComment" class="btn-primary" type="submit">Post comment</button>
+            </div>
+          </form>
+        </div>
+        <div id="commentGrid">
+            
+        </div>
         <div style="margin-top:12px;">
           <textarea id="commentInput" rows="3" class="comment-input" placeholder="Write a comment..."></textarea>
           <div style="display:flex; justify-content:flex-end; margin-top:8px;">

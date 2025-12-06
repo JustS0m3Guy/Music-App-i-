@@ -2,6 +2,7 @@
 Definition of views.
 """
 
+import json
 from datetime import datetime
 from typing import Any
 from .models import *
@@ -188,8 +189,34 @@ def register(request):
                 'year':datetime.now().year,
                 'form': form,
             }
+        )        
+
+#@login_required
+def get_comments(request, gameID: int):
+    """Renders the comment page."""
+    assert isinstance(request, HttpRequest)
+    if request.method == "POST":
+        comment_text = request.POST.get('commentData')
+        user = request.user
+        comment = Comments(
+           userID=user,
+           gameID = Games.objects.get(gameID=gameID),
+           commentText=comment_text,
+           commentTime=datetime.now()
+           ).save()
+        return HttpResponse(comment_text ,status=201)
+
+
+    if request.method == "GET":
+        comments = Comments.objects.all().filter(gameID=gameID).order_by('commentTime').reverse()
+        
+        return render(
+            request,
+            'app/commentsGrid.html',
+            {
+                'comments': comments
+            }
         )
-    
 
 def game_detail(request: HttpRequest, gameID: int) -> Any:
     assert isinstance(request, HttpRequest)
