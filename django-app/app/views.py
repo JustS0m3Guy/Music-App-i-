@@ -11,6 +11,7 @@ from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
 from .forms import RegisterForm, LoginForm
 from django.db.models import Count
+from django.db import connection
 
 def role_required(role):
     def decorator(view_func):
@@ -67,15 +68,10 @@ def edit_Game(request: HttpRequest, gameID: int) -> Any:
 
 @login_required
 def profile(request: HttpRequest):
+    assert isinstance(request, HttpRequest)
     currentuser = request.user
-    if (
-    Songs.objects
-            .filter(songID__in=FavSongs.objects.filter(userID=currentuser).values('songID'))
-            .values('gameID', 'gameID__title')
-            .annotate(fav_song_count=Count('songID'))
-            .order_by('-fav_song_count')
-    ).count() > 4:
-        UserBadges.objects.get_or_create(userID=currentuser, badgeTypeID_id=4)
+    from .badgeCkeckers import checkBadges
+    checkBadges(currentuser)
     # if FavSongs.objects.filter(userID=currentuser).count() > 9:
     #     UserBadges.objects.get_or_create(userID=currentuser, badgeID=2)
 
