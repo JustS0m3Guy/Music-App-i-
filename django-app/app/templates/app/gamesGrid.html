@@ -1,9 +1,11 @@
+{% for game in games %}
+  <article class="game-card" data-id="{{ game.gameID }}" onclick="location.href='{% url 'game_detail' game.gameID %}'">
+    {% if not game.imageURL %}
       {% load static %}
-      
-      {% for game in games %}
-        <article class="game-card" data-id="{{ game.gameID }}" onclick="location.href='{% url 'game_detail' game.gameID %}'">
-          <img class="placeholder" src="{% static 'app/media/spinning-fish.gif' %}" alt="{{ game.title }} Cover"/>
-          <div class="overlay">{{ game.title }} [{{game.releaseYear}}]</div>
-          <div></div>
-        </article>
-      {% endfor %}
+      <img class="placeholder" src="{% static 'app/media/spinning-fish.gif' %}" alt="{{ game.title }} Cover"/>
+    {% else %}
+      <img class="game-cover" src="{{ game.imageURL }}" alt="{{ game.title }} Cover"/>
+    {% endif %}
+    <div class="overlay">{{ game.title }} [{{game.releaseYear}}]</div>
+  </article>
+{% endfor %}

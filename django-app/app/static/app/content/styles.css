@@ -89,9 +89,26 @@ header.nav {
 }
 
 .muted {
-  color: var(--navy);
+  color: var(--light);
   opacity: 0.8;
   font-size: 13px;
+}
+.game-card {
+  position: relative;
+  overflow: hidden;
+  /* choose an aspect ratio: 56.25% = 16:9, 100% = square, or set fixed height */
+  padding-bottom: 90%;
+}
+
+/* make the image fill the card and crop as needed so at least one side meets edges */
+.game-card img {
+  position: absolute;
+  inset: 0;               /* shorthand for top:0; right:0; bottom:0; left:0 */
+  width: 100%;
+  height: 100%;
+  object-fit: cover;      /* cover => image scales until one dimension fills the box */
+  object-position: center;
+  display: block;
 }
 
 /* Nav controls */
@@ -468,7 +485,6 @@ main.content {
   border: none;
   cursor: pointer;
   font-weight: 700;
-  box-shadow: 0 6px 18px rgba(252, 163, 17, 0.12);
 }
 
 /* Inputs */
@@ -488,7 +504,7 @@ main.content {
 
 /* Footer: light panel */
 footer.site-footer {
-  margin-top: 28px;
+  margin-top: 40px;
   font-size: 13px;
   color: var(--navy);
   padding: 12px;
@@ -564,4 +580,145 @@ footer.site-footer {
   opacity: 1;
   background: none;
   color: var(--navy);
+}
+
+
+/* Auth split layout */
+.auth-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  align-items: stretch;
+  padding-top: 60px; /* shift both image and form down */
+}
+
+.auth-visual {
+  position: relative;
+  overflow: hidden;
+  border-radius: 16px;
+  background: #e9eef6; /* fallback color */
+  box-shadow: 0 10px 24px rgba(0,0,0,0.08);
+  min-height: 520px; /* adjust as needed */
+}
+
+.auth-visual img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.auth-form {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end; /* push the form to the right */
+}
+
+/* Keep the form a nice width */
+.login-box,
+.register-box {
+  width: 100%;
+  max-width: 420px;
+  margin-left: auto;
+  background: var(--accent);
+  padding: 32px 32px;
+  border-radius: 12px;
+  box-shadow: 0 10px 28px rgba(0,0,0,0.18);
+  color: var(--white);
+}
+
+.register-box h2 { margin-top: 0; }
+
+.register-box label { color: var(--navy); font-weight: 600; }
+
+.register-box input[type="text"],
+.register-box input[type="password"],
+.register-box input[type="email"] {
+  width: 100%;
+  padding: 10px 12px;
+  margin-top: 4px;
+  border-radius: 8px;
+  border: 1px solid rgba(20,33,61,0.2);
+  background: var(--white);
+  color: var(--navy);
+}
+
+.register-box button[type="submit"] {
+  background: var(--navy);
+  color: var(--white);
+  border: 0;
+  padding: 12px 20px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 700;
+  margin-top: 10px;
+}
+
+.register-box button[type="submit"]:hover {
+  background: #0d182d;
+}
+
+.signup-link a:link,
+.signup-link a:visited {
+  color: var(--white);
+  text-decoration: underline;
+}
+.signup-link a:hover,
+.signup-link a:focus {
+  color: var(--white);
+  text-decoration: none;
+}
+
+.login-link a:link,
+.login-link a:visited {
+  color: var(--white);
+  text-decoration: underline;
+}
+.login-link a:hover,
+.login-link a:focus {
+  color: var(--white);
+  text-decoration: none;
+}
+
+.login-box label { color: var(--navy); font-weight: 600; }
+
+.login-box input[type="text"],
+.login-box input[type="password"]
+{
+  width: 100%;
+  padding: 10px 12px;
+  margin-top: 4px;
+  border-radius: 8px;
+  border: 1px solid rgba(20,33,61,0.2);
+  background: var(--white);
+  color: var(--navy);
+}
+
+.login-box button[type="submit"] {
+  background: var(--navy);
+  color: var(--white);
+  border: 0;
+  padding: 12px 20px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 700;
+  margin-top: 10px;
+}
+
+.login-box button[type="submit"]:hover {
+  background: #0d182d;
+}
+
+/* Optional: stack on narrow widths (if you later change the meta viewport) */
+@media (max-width: 900px) {
+  .auth-layout {
+    grid-template-columns: 1fr;
+  }
+  .auth-form {
+    justify-content: center;
+  }
+  .auth-visual {
+    margin-top: 80px;
+    min-height: 260px;
+  }
 }

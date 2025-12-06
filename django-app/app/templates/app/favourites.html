@@ -1,0 +1,46 @@
+{% extends 'app/layout.html' %}
+
+{% load static %}
+{% block styles %}
+<script src="{% static 'app/scripts/favourites.js' %}"></script>
+{% endblock %}
+
+
+{% block content %}
+<main class="content" id="app">
+
+  <section id="favsView" class="view">
+    <header class="favs-header" style="display:flex; justify-content:space-between; align-items:center;">
+      <h2 class="section-title">Your Favourites</h2>
+    </header>
+    <div id="video-wrapper" style="display: none;">
+      <div id="youtube-player"></div>
+      <button id="close-video">Close</button>
+    </div>
+
+    <!-- <form class="filters">
+      <select id="filterType" onchange="SearchGames()" class="select" aria-label="Filter by game type">
+        <option value="">All genre</option>
+        {% for genre in game_genres %}
+          <option value="{{ genre }}">{{ genre }}</option>
+        {% endfor %}
+      </select>
+      <select id="filterYear" onchange="SearchGames()" class="select" aria-label="Filter by year">
+        <option value="">All years</option>
+        {% for year in game_years %}
+          <option value="{{ year }}">{{ year }}</option>
+        {% endfor %}
+      </select>
+    <button id="clearFilters" onclick="ClearFilters()" class="tab" type="button">Clear filters</button>
+    </form> -->
+
+    <!-- <section id="favsGames" class="favs-section" hidden>
+    <div class="games-grid" id="favsGamesGrid"></div>
+  </section> -->
+
+    <section id="favsSongs" class="favs-section">
+      <div class="song-list" id="favsSongsList"></div>
+    </section>
+  </section>
+</main>
+{% endblock %}

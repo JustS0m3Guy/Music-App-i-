@@ -1,0 +1,23 @@
+{% extends "app/layout.html" %}
+
+{% block title %}Edit Song{% endblock %}
+
+{% block content %}
+<h2 class="mb-4">Edit Song</h2>
+<form method="post">
+    {% csrf_token %}
+    <label for="title" class="form-label">Title:</label>
+    <input type="text" id="title" name="title" class="form-control" value="{{ game.title }}" required>
+    <label for="studio" class="form-label mt-3">Studio:</label>
+    <input type="text" id="studio" name="studio" class="form-control" value="{{ game.studio }}" required>
+    <label for="releaseYear" class="form-label mt-3">Release Year:</label>
+    <input type="text" id="releaseYear" name="releaseYear" class="form-control" value="{{ game.releaseYear }}">
+    <label for="rating" class="form-label mt-3">Rating:</label>
+    <input type="text" id="rating" name="rating" class="form-control" value="{{ game.rating }}">
+    <label for="genre" class="form-label mt-3">Genre:</label>
+    <input type="text" id="genre" name="genre" class="form-control" value="{{ game.genre }}">
+    <label for="imageURL" class="form-label mt-3">Image URL:</label>
+    <input type="text" id="imageURL" name="imageURL" class="form-control" value="{{ game.imageURL }}">
+    <button type="submit" class="btn btn-primary">Save Changes</button>
+</form>
+{% endblock %}

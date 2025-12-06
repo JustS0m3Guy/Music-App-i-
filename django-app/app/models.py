@@ -7,16 +7,18 @@ from django.contrib.auth.models import AbstractUser
 from django.utils.timezone import now
 
 
-class UserRoles(models.Model):
-    roleID = models.BigAutoField(unique=True, primary_key=True)
-    roleName = models.CharField(max_length=128, null=False, default='No Name')
 
 class User(AbstractUser):
+    ROLE_CHOICES = [
+        ('admin', 'Admin'),
+        ('member', 'Member'),
+        ('guest', 'Guest'),
+    ]
     userID = models.BigAutoField(unique=True, primary_key=True)
     username = models.CharField(max_length=128, unique=True, null=False, default='')
     email = models.EmailField(max_length=128, unique=True, null=False, default='')
     date_joined = models.DateTimeField(auto_now_add=True)
-    role = models.ForeignKey(UserRoles, on_delete=models.SET_NULL, null=True, blank=True, default=None)
+    role = models.CharField(max_length=10, choices=ROLE_CHOICES, default='guest')
     last_login = None
     first_name = None
     last_name = None
@@ -29,6 +31,7 @@ class Games(models.Model):
     releaseYear = models.SmallIntegerField(null=True, blank=True)
     rating = models.FloatField(null=True, blank=True)
     genre = models.CharField(max_length=128, null=True, blank=True)
+    imageURL = models.URLField(max_length=512, null=True, blank=True, default='')
 
 class Songs(models.Model):
     songID = models.BigAutoField(unique=True, primary_key=True)

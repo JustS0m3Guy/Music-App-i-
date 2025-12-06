@@ -1,31 +1,38 @@
 {% extends "app/layout.html" %}
+{% load static %}
 
 {% block content %}
 
 <main class="content" role="main">
-    <div class="register-box">
-        <form action="." method="post" class="form-horizontal">
-            {% csrf_token %}
-            <h2>{{ title }}</h2>
-
-            {% for field in form %}
-            <p>
-                {% if field.errors %}
-            <ul class="errorlist">
-                {% for error in field.errors %}
-                <li>{{ error }}</li>
-                {% endfor %}
-            </ul>
-            {% endif %}
-            {{ field.label_tag }} {{ field }}
-            </p>
-            {% endfor %}
-            <button type="submit">Register</button>
-        </form>
-        <div class="login-link">
-            <p>Already have an account? <a href="{% url 'login' %}">Log in here</a></p>
+    <section class="auth-layout">
+        <div class="auth-visual">
+            <img src="{% static 'app/media/muzik2.jpg' %}"/>
         </div>
-    </div>
+        <div class="auth-form">
+            <div class="register-box">
+                <form action="." method="post" class="form-horizontal">
+                    {% csrf_token %}
+                    <h2>{{ title }}</h2>
+                    {% for field in form %}
+                    <p>
+                        {% if field.errors %}
+                        <ul class="errorlist">
+                            {% for error in field.errors %}
+                            <li>{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+                        {{ field.label_tag }} {{ field }}
+                    </p>
+                    {% endfor %}
+                    <button type="submit">Register</button>
+                </form>
+                <div class="login-link">
+                    <p>Already have an account? <a href="{% url 'login' %}">Log in here</a></p>
+                </div>
+            </div>
+        </div>
+    </section>
 </main>
 
 {% endblock %}
