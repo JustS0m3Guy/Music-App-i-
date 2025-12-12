@@ -1,5 +1,5 @@
 {% extends 'app/layout.html' %}
-
+{% load i18n %}
 {% block styles %}
 {% load static %}
 <script src="{% static 'app/scripts/game_detail.js' %}"></script>
@@ -31,7 +31,7 @@
     <div style="margin-top:18px;">
       <div id="video-wrapper" style="display: none;">
         <div id="youtube-player"></div>
-        <button id="close-video">Close</button>
+        <button id="close-video">{% trans "Close" %}</button>
       </div>
       <input type="hidden" style="display: none;" id="game-id" value="{{ game.gameID }}">
       <ul class="song-list" id="songList">
@@ -54,14 +54,14 @@
         {% endfor %}
       </ul>
       <div class="comments" id="commentsSection">
-        <div class="section-title">Comments</div>
+        <div class="section-title">{% trans "Comments" %}</div>
         <div id="commentsList"></div>
         <div style="margin-top:12px;">
           <form method="post" action="api/get-comments/" id="commentpost">
             {% csrf_token %}
-            <textarea id="commentText" name="commentData" rows="3" class="comment-input" placeholder="Write a comment..." oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"'></textarea>
+            <textarea id="commentText" name="commentData" rows="3" class="comment-input" placeholder="{% trans 'Write a comment...' %}" oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"'></textarea>
             <div style="display:flex; justify-content:flex-end; margin-top:8px;">
-              <button id="postComment" class="btn-primary" type="submit">Post comment</button>
+              <button id="postComment" class="btn-primary" type="submit">{% trans "Post comment" %}</button>
             </div>
           </form>
         </div>
