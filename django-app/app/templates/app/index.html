@@ -1,5 +1,5 @@
   {% extends 'app/layout.html' %}
-
+  {% load i18n %}
   {% block styles %}
   {% load static %}
 
@@ -14,36 +14,36 @@
       <section id="homeView" class="view">
   <header class="hero light-panel">
     <div class="left">
-      <h2>Newest Games & Soundtracks</h2>
+      <h2>{% trans "Newest Games & Soundtracks" %}</h2>
       <p>
-        Discover soundtracks by game, year or type — click a game for its song list.
-        <strong class="accent-txt">Heart</strong> to save favourites.
+        {% trans "Discover soundtracks by game, year or type — click a game for its song list." %}
+        <strong class="accent-txt">{% trans "Heart" %}</strong> {% trans "to save favourites." %}
       </p>
     </div>
     <div class="right accent-box" onclick="window.location.href='/games/{{ featuredGame.gameID }}'">{{ featuredGame.title }}</div>
   </header>
 
   <section>
-    <h3 class="section-title">All Games</h3>
+    <h3 class="section-title">{% trans "All Games" %}</h3>
     <div class="display-options">
     <form class="filters">
       <select id="filterType" onchange="SearchGames()" class="select" aria-label="Filter by game type">
-        <option value="">All genre</option>
+        <option value="">{% trans "All genre" %}</option>
         {% for genre in game_genres %}
           <option value="{{ genre }}">{{ genre }}</option>
         {% endfor %}
       </select>
       <select id="filterYear" onchange="SearchGames()" class="select" aria-label="Filter by year">
-        <option value="">All years</option>
+        <option value="">{% trans "All years" %}</option>
         {% for year in game_years %}
           <option value="{{ year }}">{{ year }}</option>
         {% endfor %}
       </select>
-    <button id="clearFilters" onclick="ClearFilters()" class="tab" type="button">Clear filters</button>
+    <button id="clearFilters" onclick="ClearFilters()" class="tab" type="button">{% trans "Clear filters" %}</button>
     </form>
     <div>
-    <button class="view-btn active" data-view="grid">🔲 Grid</button>
-    <button class="view-btn" data-view="list">📋 List</button>
+    <button class="view-btn active" data-view="grid">🔲 {% trans "Grid" %}</button>
+    <button class="view-btn" data-view="list">📋 {% trans "List" %}</button>
     </div>
     </div>
 
@@ -56,10 +56,10 @@
 
       <!-- Game Detail / Songs + Comments -->
      <section id="gameView" class="view" hidden>
-  <button id="backToBrowse" class="nav-btn">← Back to Browse</button>
+  <button id="backToBrowse" class="nav-btn">{% trans "← Back to Browse" %}</button>
 
   <header class="game-header" style="display:flex; gap:20px; align-items:center; margin-top:12px;">
-    <div class="cover-placeholder">No Image</div>
+    <div class="cover-placeholder">{% trans "No Image" %}</div>
     <div>
       <h2 id="gameTitle" style="font-family:'Poppins'"></h2>
       <p class="muted" id="gameMeta"></p>
@@ -70,13 +70,13 @@
     <section class="song-list" id="songList"></section>
 
     <section class="comments" id="commentsSection">
-      <h3 class="section-title">Comments</h3>
+      <h3 class="section-title">{% trans "Comments" %}</h3>
       <div id="commentsList"></div>
 
       <form class="comment-form" style="margin-top:12px;">
-        <textarea id="commentInput" rows="3" class="comment-input" placeholder="Write a comment..."></textarea>
+        <textarea id="commentInput" rows="3" class="comment-input" placeholder="{% trans "Write a comment..." %}"></textarea>
         <div style="display:flex; justify-content:flex-end; margin-top:8px;">
-          <button id="postComment" class="btn-primary" type="submit">Post comment</button>
+          <button id="postComment" class="btn-primary" type="submit">{% trans "Post comment" %}</button>
         </div>
       </form>
     </section>
@@ -89,18 +89,18 @@
 
       <!-- Upload Page -->
       <section id="uploadView" class="view" style="display:none">
-        <div class="section-title">Upload a Song</div>
+        <div class="section-title">{% trans "Upload a Song" %}</div>
         <form id="uploadForm" style="margin-top:16px; display:flex;flex-direction:column; gap:14px; max-width:600px;">
           <label>
             Select Game
             <select id="uploadGame" class="select">
-              <option value="">— Choose Game —</option>
+              <option value="">— {% trans "Choose Game" %} —</option>
             </select>
-            <button id="clearFilters" onclick="ClearFilters()" class="tab" type="button">Clear filters</button>
+            <button id="clearFilters" onclick="ClearFilters()" class="tab" type="button">{% trans "Clear filters" %}</button>
           </form>
           <div>
-            <button class="view-btn active" data-view="grid">🔲 Grid</button>
-            <button class="view-btn" data-view="list">📋 List</button>
+            <button class="view-btn active" data-view="grid">🔲 {% trans "Grid" %}</button>
+            <button class="view-btn" data-view="list">📋 {% trans "List" %}</button>
           </div>
         </div>
 
@@ -113,10 +113,10 @@
 
     <!-- Game Detail / Songs + Comments -->
     <section id="gameView" class="view" hidden>
-      <button id="backToBrowse" class="nav-btn">← Back to Browse</button>
+      <button id="backToBrowse" class="nav-btn">{% trans "← Back to Browse" %}</button>
 
       <header class="game-header" style="display:flex; gap:20px; align-items:center; margin-top:12px;">
-        <div class="cover-placeholder">No Image</div>
+        <div class="cover-placeholder">{% trans "No Image" %}</div>
         <div>
           <h2 id="gameTitle" style="font-family:'Poppins'"></h2>
           <p class="muted" id="gameMeta"></p>
@@ -127,13 +127,13 @@
         <section class="song-list" id="songList"></section>
 
         <section class="comments" id="commentsSection">
-          <h3 class="section-title">Comments</h3>
+          <h3 class="section-title">{% trans "Comments" %}</h3>
           <div id="commentsList"></div>
 
           <form class="comment-form" style="margin-top:12px;">
-            <textarea id="commentInput" rows="3" class="comment-input" placeholder="Write a comment..." oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"'></textarea>
+            <textarea id="commentInput" rows="3" class="comment-input" placeholder="{% trans "Write a comment..." %}" oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"'></textarea>
             <div style="display:flex; justify-content:flex-end; margin-top:8px;">
-              <button id="postComment" class="btn-primary">Post comment</button>
+              <button id="postComment" class="btn-primary">{% trans "Post comment" %}</button>
             </div>
           </form>
         </section>
@@ -144,12 +144,12 @@
     <!-- Favourites -->
     <section id="favsView" class="view" hidden>
       <header class="favs-header" style="display:flex; justify-content:space-between; align-items:center;">
-        <h2 class="section-title">Your Favourites</h2>
+        <h2 class="section-title">{% trans "Your Favourites" %}</h2>
       </header>
 
       <nav class="tabs" aria-label="Favourites Tabs">
-        <button class="tab active" data-favtab="games" type="button">Liked Games</button>
-        <button class="tab" data-favtab="songs" type="button">Liked Songs</button>
+        <button class="tab active" data-favtab="games" type="button">{% trans "Liked Games" %}</button>
+        <button class="tab" data-favtab="songs" type="button">{% trans "Liked Songs" %}</button>
       </nav>
 
       <section id="favsGames" class="favs-section">
@@ -164,12 +164,12 @@
 
     <!-- Upload Page -->
     <section id="uploadView" class="view" style="display:none">
-      <div class="section-title">Upload a Song</div>
+      <div class="section-title">{% trans "Upload a Song" %}</div>
       <form id="uploadForm" style="margin-top:16px; display:flex;flex-direction:column; gap:14px; max-width:600px;">
         <label>
           Select Game
           <select id="uploadGame" class="select">
-            <option value="">— Choose Game —</option>
+            <option value="">— {% trans "Choose Game" %} —</option>
           </select>
         </label>
         <label>
@@ -184,7 +184,7 @@
           File
           <input id="uploadFile" type="file" class="select" />
         </label>
-        <button type="submit" class="btn-primary">Submit Upload</button>
+        <button type="submit" class="btn-primary">{% trans "Submit Upload" %}</button>
       </form>
     </section>
 

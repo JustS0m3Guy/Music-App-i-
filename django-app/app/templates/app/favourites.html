@@ -1,5 +1,5 @@
 {% extends 'app/layout.html' %}
-
+{% load i18n %}
 {% load static %}
 {% block styles %}
 <script src="{% static 'app/scripts/favourites.js' %}"></script>
@@ -15,7 +15,7 @@
     </header>
     <div id="video-wrapper" style="display: none;">
       <div id="youtube-player"></div>
-      <button id="close-video">Close</button>
+      <button id="close-video">{% trans "Close" %}</button>
     </div>
 
     <!-- <form class="filters">

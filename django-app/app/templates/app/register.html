@@ -1,4 +1,5 @@
 {% extends "app/layout.html" %}
+{% load i18n %}
 {% load static %}
 
 {% block content %}
@@ -25,10 +26,10 @@
                         {{ field.label_tag }} {{ field }}
                     </p>
                     {% endfor %}
-                    <button type="submit">Register</button>
+                    <button type="submit">{% trans "Register" %}</button>
                 </form>
                 <div class="login-link">
-                    <p>Already have an account? <a href="{% url 'login' %}">Log in here</a></p>
+                    <p>{% trans "Already have an account?" %} <a href="{% url 'login' %}">{% trans "Log in here" %}</a></p>
                 </div>
             </div>
         </div>

@@ -6,6 +6,7 @@ from django import forms
 #from app.models import Comments
 from django.contrib.auth.forms import AuthenticationForm, AdminUserCreationForm, UserChangeForm, UserCreationForm
 from django.utils.translation import gettext_lazy as _
+from django_app.settings import LANGUAGES
 
 
 from .models import User
@@ -67,3 +68,8 @@ class BootstrapAuthenticationForm(AuthenticationForm):
                               widget=forms.PasswordInput({
                                   'class': 'form-control',
                                   'placeholder':'Password'}))
+
+class LanguageForm(forms.Form):
+    language = forms.ChoiceField(choices=LANGUAGES, 
+    widget=forms.RadioSelect
+    )
