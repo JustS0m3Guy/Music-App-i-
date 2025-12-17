@@ -1,0 +1,19 @@
+{% load i18n %}
+{% load static %}
+{% extends "app/layout.html" %}
+
+{% block styles %}
+  <link rel="stylesheet" href="{% static 'app/content/styles.css' %}">
+{% endblock %}
+
+{% block content %}
+<main class="container">
+  <h1>{% trans "Video Game Music Library" %}</h1>
+  <p>{% trans "Welcome to the library of game soundtracks and tracks." %}</p>
+  <!-- Move content from Static_HTML/index.html here and wrap visible strings with {% trans %} -->
+</main>
+{% endblock %}
+
+{% block scripts %}
+  <script src="{% static 'app/scripts/index.js' %}"></script>
+{% endblock %}

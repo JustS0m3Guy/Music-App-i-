@@ -1,3 +1,4 @@
+{% load i18n %}
 <nav class="links" role="navigation" aria-label="Main navigation">
   <button class="nav-btn active" data-route="home" onclick="SearchGames()">Browse</button>
   {% if user.is_authenticated %}
@@ -15,8 +16,8 @@
         <div class="profile">
           <div class="avatar" title="Profile"></div>
         </div>
-          <span class="muted small">Hello, {{ user.username }}!</span>
-          <a href="javascript:document.getElementById('logoutForm').submit()">Log out</a>
+          <span class="muted small">{% trans "Hello," %} {{ user.username }}!</span>
+          <a href="javascript:document.getElementById('logoutForm').submit()">{% trans "Log out" %}</a>
           <form id="logoutForm" action="{% url 'logout' %}" method="post" style="display:none;">
               {% csrf_token %}
           </form>

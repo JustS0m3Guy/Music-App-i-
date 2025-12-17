@@ -1,0 +1,298 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-12-12 14:51+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
+"(n%100>=11 && n%100<=14)? 2 : 3);\n"
+
+#: django-app/app/forms.py:67 django-app/app/templates/app/static_login.html:27
+msgid "Password"
+msgstr "Пароль"
+
+#: django-app/app/templates/app/commentsGrid.html:13
+msgid "Like"
+msgstr "Лайк"
+
+#: django-app/app/templates/app/commentsGrid.html:14
+msgid "Reply"
+msgstr "Ответить"
+
+#: django-app/app/templates/app/commentsGrid.html:15
+msgid "Delete"
+msgstr "Удалить"
+
+#: django-app/app/templates/app/edit_game.html:4
+#: django-app/app/templates/app/edit_game.html:7
+msgid "Edit Game"
+msgstr "Редактировать игру"
+
+#: django-app/app/templates/app/edit_game.html:10
+#: django-app/app/templates/app/edit_song.html:9
+msgid "Title:"
+msgstr "Название"
+
+#: django-app/app/templates/app/edit_game.html:12
+msgid "Studio:"
+msgstr "Студия"
+
+#: django-app/app/templates/app/edit_game.html:14
+msgid "Release Year:"
+msgstr "Год выхода"
+
+#: django-app/app/templates/app/edit_game.html:16
+msgid "Rating:"
+msgstr "Оценка"
+
+#: django-app/app/templates/app/edit_game.html:18
+msgid "Genre:"
+msgstr "Жанр"
+
+#: django-app/app/templates/app/edit_game.html:20
+#: django-app/app/templates/app/edit_song.html:15
+msgid "Image URL:"
+msgstr "Ссылка картинки"
+
+#: django-app/app/templates/app/edit_game.html:22
+#: django-app/app/templates/app/edit_song.html:17
+msgid "Save Changes"
+msgstr "Сохранить изменения"
+
+#: django-app/app/templates/app/edit_song.html:3
+#: django-app/app/templates/app/edit_song.html:6
+msgid "Edit Song"
+msgstr "Редактировать песню"
+
+#: django-app/app/templates/app/edit_song.html:11
+msgid "Video URL:"
+msgstr "Ссылка на видео"
+
+#: django-app/app/templates/app/edit_song.html:13
+msgid "Length:"
+msgstr "Длина"
+
+#: django-app/app/templates/app/favourites.html:18
+#: django-app/app/templates/app/game_detail.html:34
+msgid "Close"
+msgstr "Закрыть"
+
+#: django-app/app/templates/app/game_detail.html:57
+#: django-app/app/templates/app/index.html:73
+#: django-app/app/templates/app/index.html:130
+msgid "Comments"
+msgstr "Комментарии"
+
+#: django-app/app/templates/app/game_detail.html:62
+#: django-app/app/templates/app/index.html:77
+#: django-app/app/templates/app/index.html:134
+msgid "Write a comment..."
+msgstr "Написать комментарий"
+
+#: django-app/app/templates/app/game_detail.html:64
+#: django-app/app/templates/app/index.html:79
+#: django-app/app/templates/app/index.html:136
+msgid "Post comment"
+msgstr "Опубликовать комментарий"
+
+#: django-app/app/templates/app/games_grind.html:11
+msgid "Games Grind"
+msgstr "Игровой гринд"
+
+#: django-app/app/templates/app/grid_list.html:12
+msgid "Grid and List"
+msgstr "Сетка и список"
+
+#: django-app/app/templates/app/index.html:17
+msgid "Newest Games & Soundtracks"
+msgstr "Новые игры и Саундтреки"
+
+#: django-app/app/templates/app/index.html:19
+msgid ""
+"Discover soundtracks by game, year or type — click a game for its song list."
+msgstr ""
+"Найдите саундтреки по игре, году выпуска или типу — щелкните по игре, чтобы "
+"увидеть список композиций."
+
+#: django-app/app/templates/app/index.html:20
+msgid "Heart"
+msgstr "Сэрцэ"
+
+#: django-app/app/templates/app/index.html:20
+msgid "to save favourites."
+msgstr "чтобы сохранить избранное"
+
+#: django-app/app/templates/app/index.html:27
+msgid "All Games"
+msgstr "Все игры"
+
+#: django-app/app/templates/app/index.html:31
+msgid "All genre"
+msgstr "Все жанры"
+
+#: django-app/app/templates/app/index.html:37
+msgid "All years"
+msgstr "Все года"
+
+#: django-app/app/templates/app/index.html:42
+#: django-app/app/templates/app/index.html:99
+msgid "Clear filters"
+msgstr "Очистить фильтры"
+
+#: django-app/app/templates/app/index.html:45
+#: django-app/app/templates/app/index.html:102
+msgid "Grid"
+msgstr "Сетка"
+
+#: django-app/app/templates/app/index.html:46
+#: django-app/app/templates/app/index.html:103
+msgid "List"
+msgstr "Список"
+
+#: django-app/app/templates/app/index.html:59
+#: django-app/app/templates/app/index.html:116
+msgid "← Back to Browse"
+msgstr "← Назад к Поиску"
+
+#: django-app/app/templates/app/index.html:62
+#: django-app/app/templates/app/index.html:119
+msgid "No Image"
+msgstr "Нет изображения"
+
+#: django-app/app/templates/app/index.html:92
+#: django-app/app/templates/app/index.html:167
+msgid "Upload a Song"
+msgstr "Загрузить Песню"
+
+#: django-app/app/templates/app/index.html:97
+#: django-app/app/templates/app/index.html:172
+msgid "Choose Game"
+msgstr "Выбрать Игру"
+
+#: django-app/app/templates/app/index.html:147
+msgid "Your Favourites"
+msgstr "Избранное"
+
+#: django-app/app/templates/app/index.html:151
+msgid "Liked Games"
+msgstr "Понравившиеся Игры"
+
+#: django-app/app/templates/app/index.html:152
+msgid "Liked Songs"
+msgstr "Понравившиеся Песни"
+
+#: django-app/app/templates/app/index.html:187
+msgid "Submit Upload"
+msgstr "Подтвердить загрузку"
+
+#: django-app/app/templates/app/layout.html:21
+#: django-app/app/templates/app/static_index.html:11
+msgid "Video Game Music Library"
+msgstr "Видеоигровая Музыкальная Библиотека"
+
+#: django-app/app/templates/app/layout.html:22
+msgid "Playful • Streaming-style • Desktop"
+msgstr "Игровой • В стиле стриминга • Для компьютера"
+
+#: django-app/app/templates/app/layout.html:29
+msgid "Search games or songs..."
+msgstr "Искать Игры или Песни..."
+
+#: django-app/app/templates/app/login.html:13
+msgid "Welcome!"
+msgstr "Добро Пожаловать !"
+
+#: django-app/app/templates/app/login.html:28
+#: django-app/app/templates/app/static_login.html:11
+#: django-app/app/templates/app/static_login.html:30
+msgid "Login"
+msgstr "Вход"
+
+#: django-app/app/templates/app/login.html:31
+msgid "Please enter a correct user name and password."
+msgstr "Пожалуйста введите правильный логин и пароль."
+
+#: django-app/app/templates/app/login.html:34
+#: django-app/app/templates/app/static_login.html:33
+msgid "Don't have an account?"
+msgstr "Нету аккаунта ?"
+
+#: django-app/app/templates/app/login.html:34
+#: django-app/app/templates/app/static_login.html:33
+msgid "Sign up here"
+msgstr "Зарегестрируйтесь здесь"
+
+#: django-app/app/templates/app/loginpartial.html:19
+msgid "Hello,"
+msgstr "Привет,"
+
+#: django-app/app/templates/app/loginpartial.html:20
+msgid "Log out"
+msgstr "Выйти"
+
+#: django-app/app/templates/app/register.html:29 django-app/app/views.py:189
+msgid "Register"
+msgstr "Регистрация"
+
+#: django-app/app/templates/app/register.html:32
+msgid "Already have an account?"
+msgstr "Уже есть аккаунт?"
+
+#: django-app/app/templates/app/register.html:32
+msgid "Log in here"
+msgstr "Приходите в мой дом"
+
+#: django-app/app/templates/app/static_index.html:12
+msgid "Welcome to the library of game soundtracks and tracks."
+msgstr "Добро пожаловать в библиотеку игровых саундтреков и треков."
+
+#: django-app/app/templates/app/static_login.html:12
+msgid "Please sign in to continue."
+msgstr "Пожалуйста, войдите, чтобы продолжить."
+
+#: django-app/app/templates/app/static_login.html:19
+#, fuzzy
+#| msgid "Welcome!"
+msgid "Welcome Back!"
+msgstr "Добро Пожаловать !"
+
+#: django-app/app/templates/app/static_login.html:23
+msgid "Username"
+msgstr "Имя Пользователя"
+
+#: django-app/app/views.py:94
+msgid "Home Page"
+msgstr "Главная страница"
+
+#: django-app/app/views.py:123 django-app/app/views.py:132
+msgid "Log in"
+msgstr "Вход"
+
+#~ msgid "Main navigation"
+#~ msgstr "Навигация"
+
+#~ msgid "Browse"
+#~ msgstr "Поиск"
+
+#, fuzzy
+#~| msgid "Upload a Song"
+#~ msgid "Upload"
+#~ msgstr "Загрузить Песню"
+
+#, fuzzy
+#~| msgid "Your Favourites"
+#~ msgid "Favourites"
+#~ msgstr "Избранное"

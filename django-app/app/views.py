@@ -7,10 +7,13 @@ from datetime import datetime
 from typing import Any
 from .models import *
 from django.shortcuts import redirect, render
-from django.http import HttpRequest, HttpResponse, JsonResponse
+from django.http import HttpRequest, HttpResponse, JsonResponse, HttpResponseRedirect
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
 from .forms import RegisterForm, LoginForm
+from django.utils.translation import gettext as _
+from django.utils.translation import activate
+from django.urls import reverse
 
 def role_required(role):
     def decorator(view_func):
@@ -87,19 +90,17 @@ def view_favorites(request: HttpRequest) -> Any:
 def home(request):
     """Renders the home page."""
     assert isinstance(request, HttpRequest)
-    return render(
-        request,
-        'app/index.html',
-        {
-            'title':'Home Page',
-            'year':datetime.now().year,
-            # 'games': games.order_by('releaseYear').reverse(),
-            'game_years': Games.objects.values_list('releaseYear', flat=True).distinct().order_by('releaseYear').reverse(), 
-            'game_genres': Games.objects.values_list('genre', flat=True).distinct().order_by('genre'), 
-            'featuredGame': Games.objects.order_by('gameID').reverse().first(),
+    context = {
+        'title': _('Home Page'),  # instead of 'title':'Home Page'
+        'year': datetime.now().year,
+        # 'games': games.order_by('releaseYear').reverse(),
+        'game_years': Games.objects.values_list('releaseYear', flat=True).distinct().order_by('releaseYear').reverse(), 
+        'game_genres': Games.objects.values_list('genre', flat=True).distinct().order_by('genre'), 
+        'featuredGame': Games.objects.order_by('gameID').reverse().first(),
 
-        }
-    )
+    }
+    return render(request, 'app/index.html', context)
+
 def loginView(request):
     """Renders the login page."""
     assert isinstance(request, HttpRequest)
@@ -119,7 +120,7 @@ def loginView(request):
                 request,
                 'app/login.html',
                 {
-                    'title':'Log in',
+                    'title':_('Log in'),
                     'year':datetime.now().year,
                     'form': form,
                 }
@@ -128,7 +129,7 @@ def loginView(request):
         request,
         'app/login.html',
         {
-            'title':'Log in',
+            'title':_('Log in'),
             'year':datetime.now().year,
             'form': LoginForm(),
         }
@@ -185,7 +186,7 @@ def register(request):
             request,
             'app/register.html',
             {
-                'title':'Register',
+                'title':_('Register'),
                 'year':datetime.now().year,
                 'form': form,
             }
@@ -284,4 +285,41 @@ def search_games(request: HttpRequest) -> Any:
             'games': games.order_by('releaseYear').reverse(),
         }
     )
+
+def set_language_preference(request):
+    """Handle language preference switching."""
+    if request.method == 'POST':
+        language = request.POST.get('language', 'en')
+        activate(language)
+        request.session['django_language'] = language
+        request.session.modified = True
+    
+    # Get the next URL and add language prefix
+    next_url = request.POST.get('next', '/')
+    
+    # Remove language prefix if it exists, then add the new one
+    parts = next_url.strip('/').split('/')
+    if parts[0] in ['en', 'ru']:
+        next_url = '/' + '/'.join(parts[1:])
+    
+    language = request.POST.get('language', 'en')
+    redirect_url = f'/{language}{next_url}'
+    
+    return HttpResponseRedirect(redirect_url)
+
+def static_index(request: HttpRequest) -> Any:
+    """Render converted static index page as a Django template."""
+    return render(request, 'app/static_index.html')
+
+def static_login(request: HttpRequest) -> Any:
+    """Render converted static login page as a Django template."""
+    return render(request, 'app/static_login.html')
+
+def games_grind(request: HttpRequest) -> Any:
+    """Render converted GamesGrind page as a Django template."""
+    return render(request, 'app/games_grind.html')
+
+def grid_list(request: HttpRequest) -> Any:
+    """Render converted Grid and List page as a Django template."""
+    return render(request, 'app/grid_list.html')
 

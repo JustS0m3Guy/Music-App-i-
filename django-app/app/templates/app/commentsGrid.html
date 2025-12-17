@@ -1,4 +1,5 @@
 {% load static %}
+{% load i18n %}
 {% for comment in comments %}
 <article>
     <div class="comment">
@@ -9,9 +10,9 @@
             <div class="meta"> {{ comment.userID.username }} &bull; {{ comment.commentTime }}</div>
             <div class="text">{{ comment.commentText }}</div>
             <div class="actions">
-                <span>Like</span>
-                <span>Reply</span>
-                <span>Delete</span>
+                <span>{% trans "Like" %}</span>
+                <span>{% trans "Reply" %}</span>
+                <span>{% trans "Delete" %}</span>
             </div>
         </div>
     </div>

@@ -1,0 +1,19 @@
+{% load i18n %}
+{% load static %}
+{% extends "app/layout.html" %}
+
+{% block styles %}
+  <link rel="stylesheet" href="{% static 'app/content/styles.css' %}">
+  <link rel="stylesheet" href="{% static 'app/content/grid-and-list.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="grid-list">
+  <h1>{% trans "Grid and List" %}</h1>
+  <!-- Move content from Static_HTML/grid and list.html here; translate visible strings with {% trans %} -->
+</section>
+{% endblock %}
+
+{% block scripts %}
+  <script src="{% static 'app/scripts/grid-and-list.js' %}"></script>
+{% endblock %}

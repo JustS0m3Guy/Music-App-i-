@@ -1,0 +1,44 @@
+{% load i18n %}
+{% load static %}
+{% extends "app/layout.html" %}
+
+{% block styles %}
+  <link rel="stylesheet" href="{% static 'app/content/styles.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="auth">
+  <h1>{% trans "Login" %}</h1>
+  <p>{% trans "Please sign in to continue." %}</p>
+  <div class="auth-layout">
+    <div class="auth-visual">
+      <img src="{% static 'app/media/muzik.jpg' %}" alt="">
+    </div>
+    <div class="auth-form">
+      <div class="login-box">
+        <h2>{% trans "Welcome Back!" %}</h2>
+        <form method="post" action="{% url 'login' %}">
+          {% csrf_token %}
+          <div class="form-group">
+            <label for="id_username">{% trans "Username" %}</label>
+            <input type="text" id="id_username" name="username" required>
+          </div>
+          <div class="form-group">
+            <label for="id_password">{% trans "Password" %}</label>
+            <input type="password" id="id_password" name="password" required>
+          </div>
+          <button type="submit">{% trans "Login" %}</button>
+        </form>
+        <div class="signup-link">
+          <p>{% trans "Don't have an account?" %} <a href="{% url 'register' %}">{% trans "Sign up here" %}</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+</section>
+{% endblock %}
+
+{% block scripts %}
+  <script src="{% static 'app/scripts/index.js' %}"></script>
+{% endblock %}
