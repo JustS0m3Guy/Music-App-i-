@@ -9,32 +9,7 @@
 
 //}
 
-document.addEventListener('DOMContentLoaded', async () => {
-    await fetchComments();
-    const form = document.getElementById('commentpost');
-    form.onsubmit = async (e) => {
-        e.preventDefault();
-        const formData = new FormData(form);
-        const response = await fetch('api/get-comments/', {
-            method: 'POST',
-            body: formData
-        });
-        if (response.ok) {
-            await fetchComments();
-            document.getElementById('commentText').value = '';
-        }
-    }
-});
-
-
-async function fetchComments() {
-    let url = 'api/get-comments';
-
-    const response = await fetch(url);
-
-    document.getElementById('commentGrid').innerHTML = await response.text();
-}
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
     const gameId = document.getElementById('game-id').value;
     fetch(`/api/get-favs-per-game/${gameId}/`)
         .then(response => {
@@ -57,6 +32,22 @@ document.addEventListener("DOMContentLoaded", () => {
             console.error('There was a problem with the fetch operation:', error);
         });
 
+    await fetchComments();
+    const form = document.getElementById('commentpost');
+    form.onsubmit = async (e) => {
+        e.preventDefault();
+        const formData = new FormData(form);
+        const response = await fetch('api/get-comments/', {
+            method: 'POST',
+            body: formData
+        });
+        if (response.ok)
+        {
+            await fetchComments();
+            document.getElementById('commentText').value = '';
+        }
+    }
+
     // attach play handlers for any .btn-play already on the page
     document.querySelectorAll('.btn-play').forEach(btn => {
         btn.addEventListener('click', (e) => {
@@ -68,6 +59,13 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 
+async function fetchComments() {
+    let url = 'api/get-comments';
+
+    const response = await fetch(url);
+
+    document.getElementById('commentGrid').innerHTML = await response.text();
+}
 
 function getCookie(name) {
     if (typeof name !== "string" || !name.trim()) {
@@ -251,52 +249,7 @@ async function playSong(url) {
             closeBtn.onclick = () => {
                 player.innerHTML = '';
                 wrapper.style.display = 'none';
-                closeBtn.style.display = 'none';<div style="margin-top:18px;">
-62
- 
-      <ul class="song-list" id="songList">
-63
- 
-      {% for song in songs %}
-64
- 
-      <li class="song-row">
-65
- 
-        <button class="btn-play" onclick="window.location.href='{{ song.videoURL }}'">
-66
- 
-        &#x25B6;
-67
- 
-        </button>
-68
- 
-        <span class="song-meta">{{ song.songName }}</span>
-69
- 
-        <span class="song-year">{{ song.length }}</span>
-70
- 
-        <div class="heart" onclick="AddToFavs({{ song.songID }})" >
-71
- 
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-72
- 
-            <path d="M20.8 4.6c-1.4-1.4-3.6-1.4-5 0L12 8.4 8.2 4.6c-1.4-1.4-3.6-1.4-5 0-1.4 1.4-1.4 3.6 0 5L12 21.5l8.8-11c1.4-1.4 1.4-3.6 0-5z"></path>
-73
- 
-          </svg>
-74
- 
-        </div>
-75
- 
-      </li>
-76
- 
-      {% endfor %}
+                closeBtn.style.display = 'none';
             };
         }
 

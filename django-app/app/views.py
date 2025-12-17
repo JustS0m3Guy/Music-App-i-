@@ -191,7 +191,7 @@ def register(request):
             }
         )        
 
-#@login_required
+@login_required
 def get_comments(request, gameID: int):
     """Renders the comment page."""
     assert isinstance(request, HttpRequest)
@@ -204,7 +204,7 @@ def get_comments(request, gameID: int):
            commentText=comment_text,
            commentTime=datetime.now()
            ).save()
-        return HttpResponse(comment_text ,status=201)
+        return HttpResponse(status=201)
 
 
     if request.method == "GET":
