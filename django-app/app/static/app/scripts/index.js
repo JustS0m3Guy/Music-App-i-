@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () =>{
-      const viewButtons = document.querySelectorAll('.view-btn');
+const viewButtons = document.querySelectorAll('.view-btn');
   const gamesGrid = document.querySelector('.games-grid');
   let searchtimer = null;
   document.querySelector("#globalSearch").addEventListener("input", (e) => {

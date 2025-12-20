@@ -1,26 +1,11 @@
+{% load i18n %}
 <!DOCTYPE html>
-<!-- <html>
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ title }} - My Django Application</title>
-    {% load static %}
-    <link rel="stylesheet" type="text/css" href="{% static 'app/content/bootstrap.min.css' %}" />
-    <link rel="stylesheet" type="text/css" href="{% static 'app/content/site.css' %}" />
-    <script src="{% static 'app/scripts/modernizr-2.6.2.js' %}"></script>
-</head> -->
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <!-- <meta name="viewport" content="width=1200" /> -->
   <title>{{ title }}</title>
-
-  <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
-  <!-- Styles -->
-  {% block styles %}
-  
-  {% endblock %}
+  {% block styles %}{% endblock %}
   {% load static %}
   <link rel="stylesheet" href="{% static 'app/content/styles.css' %}">
 </head>
@@ -29,20 +14,31 @@
 
   <div class="wrap">
     <header class="nav" role="banner">
-      <button onclick="window.location.href='{% url 'home' %}'" style="all:unset; cursor:pointer;">
-      <div class="brand" onclick="window.location.href={% url 'home' %}">
-        <div class="logo" >VGM</div>
-        <div>
-          <h1>Video Game Music Library</h1>
-          <div class="muted small">Playful • Streaming-style • Desktop</div>
+      <button onclick="window.location.href='/'" style="all:unset; cursor:pointer;">
+        <div class="brand">
+          <div class="logo">VGM</div>
+          <div>
+            <h1>{% trans "Video Game Music Library" %}</h1>
+            <div class="muted small">{% trans "Playful • Streaming-style • Desktop" %}</div>
+          </div>
         </div>
-      </div>
       </button>
       <div class="nav-controls">
         <div class="search" role="search">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" style="opacity:0.8"><path d="M21 21l-4.35-4.35" stroke="#14213D" stroke-width="1.6" stroke-linecap="round"/></svg>
-          <input id="globalSearch" placeholder="Search games or songs..." aria-label="Search games or songs" />
+          <input id="globalSearch" placeholder="{% trans 'Search games or songs...' %}" aria-label="{% trans 'Search games or songs...' %}" />
         </div>
+
+        <!-- LANGUAGE SWITCHER BUTTONS -->
+        <form action="{% url 'set_language_preference' %}" method="post">
+        {% csrf_token %}
+        <input name="next" type="hidden" value="{{ redirect_to }}" />
+        <select name="language">
+            <option value="en">English</option>
+            <option value="ru">Russian</option>
+        </select>
+        <input type="submit" value="Change Language">
+        </form>
 
         {% include 'app/loginpartial.html' %}
 

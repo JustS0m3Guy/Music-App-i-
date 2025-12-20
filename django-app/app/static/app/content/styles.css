@@ -404,20 +404,24 @@ main.content {
 .comment {
   display: flex;
   gap: 12px;
-  margin-bottom: 12px;
+  margin-bottom: 30px;
+}
+
+.commentGrid {
+    display: grid;
 }
 
 .comment .avatar {
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  background: var(--navy);
-  flex-shrink: 0;
-  color: var(--white);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 700;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--navy);
+    flex-shrink: 0;
+    color: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
 }
 
 .comment .body {
@@ -483,14 +487,21 @@ main.content {
   font-weight: 700;
 }
 
+
+
 /* Inputs */
 .comment-input {
-  width: 100%;
-  border-radius: 8px;
-  padding: 10px;
-  background: var(--white);
-  color: var(--navy);
-  border: 1px solid rgba(20, 33, 61, 0.06);
+    resize: none;
+    width: 100%;
+    overflow: hidden;
+    height: 28px;
+    border-radius: 8px;
+    padding-right: 10px;
+    padding-left: 10px;
+    background: var(--white);
+    color: var(--navy);
+    border: 1px solid rgba(20, 33, 61, 0.5);
+    font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, Arial;
 }
 
 /* Footer: light panel */
@@ -713,3 +724,7 @@ footer.site-footer {
     min-height: 260px;
   }
 }
+
+
+
+/* Language Switcher */
