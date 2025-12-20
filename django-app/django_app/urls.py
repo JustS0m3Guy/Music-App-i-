@@ -16,6 +16,7 @@ urlpatterns = i18n_patterns(
     path('favourites/', views.view_favorites, name='favourites'),
     path('edit-song/<int:songID>/', views.edit_Song, name='edit_song'),
     path('games/<int:gameID>/edit/', views.edit_Game, name='edit_game'),
+    path('profile/', views.profile, name='profile'),
     path('register/', views.register, name='register'),
     path('games/<int:gameID>/', views.game_detail, name='game_detail'),
     path('games/<int:gameID>/api/get-comments/', views.get_comments, name='get_comments'),
