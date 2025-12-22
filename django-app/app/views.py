@@ -219,6 +219,20 @@ def get_comments(request, gameID: int):
             }
         )
 
+@login_required
+def delete_comment(request, gameID: int, commentID: int):
+    """Deletes a comment."""
+    assert isinstance(request, HttpRequest)
+    if request.method == "DELETE":
+        comment = Comments.objects.get(commentID=commentID)
+        if comment.userID == request.user:
+            comment.delete()
+            return HttpResponse(status=200)
+        else:
+            return HttpResponse(status=403)
+    else:
+        return HttpResponse(status=405)
+
 def game_detail(request: HttpRequest, gameID: int) -> Any:
     assert isinstance(request, HttpRequest)
     game = Games.objects.get(gameID=gameID)

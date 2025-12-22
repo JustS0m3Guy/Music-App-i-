@@ -48,6 +48,20 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
     }
 
+    document.querySelectorAll('.likeForm').forEach(form => {
+        form.onsubmit = async (e) => {
+            e.preventDefault();
+            
+        }
+    });
+
+    document.querySelectorAll('.replyForm').forEach(form => {
+        form.onsubmit = async (e) => {
+            e.preventDefault();
+
+        }
+    });
+
     // attach play handlers for any .btn-play already on the page
     document.querySelectorAll('.btn-play').forEach(btn => {
         btn.addEventListener('click', (e) => {
@@ -59,12 +73,34 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
 });
 
+async function submitCommentForm(e, form) {
+    e.preventDefault();
+    const commentID = form.dataset.commentId;
+
+    const csrftoken = getCookie('csrftoken');
+    const response = await fetch('api/delete-comment/' + commentID + '/', {
+        method: 'DELETE',
+        headers: {
+            'X-CSRFToken': csrftoken,
+        }
+    });
+    if (response.ok) {
+        await fetchComments();
+    }
+}
+
 async function fetchComments() {
     let url = 'api/get-comments';
 
     const response = await fetch(url);
 
     document.getElementById('commentGrid').innerHTML = await response.text();
+
+    document.querySelectorAll('.deleteForm').forEach(form => {
+        form.onsubmit = async (e) => {
+            submitCommentForm(e, form)
+        }
+    });
 }
 
 function getCookie(name) {

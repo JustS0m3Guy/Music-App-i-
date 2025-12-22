@@ -19,6 +19,7 @@ urlpatterns = i18n_patterns(
     path('register/', views.register, name='register'),
     path('games/<int:gameID>/', views.game_detail, name='game_detail'),
     path('games/<int:gameID>/api/get-comments/', views.get_comments, name='get_comments'),
+    path('games/<int:gameID>/api/delete-comment/<int:commentID>/', views.delete_comment, name='delete_comment'),
     path('accounts/login/', views.loginView, name='login'),
     path('logout/', LogoutView.as_view(next_page='/'), name='logout'),
     path('admin/', admin.site.urls),
