@@ -103,6 +103,22 @@ async function fetchComments() {
     });
 }
 
+async function submitCommentForm(e, form) {
+    e.preventDefault();
+    const commentID = form.dataset.commentId;
+
+    const csrftoken = getCookie('csrftoken');
+    const response = await fetch('api/delete-comment/' + commentID + '/', {
+        method: 'DELETE',
+        headers: {
+            'X-CSRFToken': csrftoken,
+        }
+    });
+    if (response.ok) {
+        await fetchComments();
+    }
+}
+
 function getCookie(name) {
     if (typeof name !== "string" || !name.trim()) {
         console.error("Invalid cookie name");

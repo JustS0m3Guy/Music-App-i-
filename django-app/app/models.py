@@ -58,6 +58,8 @@ class Comments(models.Model):
     gameID = models.ForeignKey(Games, on_delete=models.SET_NULL, null=True, blank=True, default=None)
     commentText = models.TextField('Comment', max_length=512, null=False, default='')
     commentTime = models.DateTimeField('Comment Time', default=now, null=False)
+    isReply = models.BooleanField('Reply', null=True, blank=True, default=False)
+    replyCommentID = models.BigIntegerField('Reply Comment ID', null=True, blank=True, default=None)
 
 
 # Create your models here.
