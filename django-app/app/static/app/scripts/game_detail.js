@@ -48,20 +48,6 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
     }
 
-    document.querySelectorAll('.likeForm').forEach(form => {
-        form.onsubmit = async (e) => {
-            e.preventDefault();
-            
-        }
-    });
-
-    document.querySelectorAll('.replyForm').forEach(form => {
-        form.onsubmit = async (e) => {
-            e.preventDefault();
-
-        }
-    });
-
     // attach play handlers for any .btn-play already on the page
     document.querySelectorAll('.btn-play').forEach(btn => {
         btn.addEventListener('click', (e) => {
@@ -73,13 +59,12 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
 });
 
-async function submitCommentForm(e, form) {
+async function submitCommentForm(e, form, method, url) {
     e.preventDefault();
     const commentID = form.dataset.commentId;
-
     const csrftoken = getCookie('csrftoken');
-    const response = await fetch('api/delete-comment/' + commentID + '/', {
-        method: 'DELETE',
+    const response = await fetch('api/'+ url +'-comment/' + commentID + '/', {
+        method: method,
         headers: {
             'X-CSRFToken': csrftoken,
         }
@@ -98,25 +83,21 @@ async function fetchComments() {
 
     document.querySelectorAll('.deleteForm').forEach(form => {
         form.onsubmit = async (e) => {
-            submitCommentForm(e, form)
+            submitCommentForm(e, form, "DELETE", "delete")
         }
     });
-}
 
-async function submitCommentForm(e, form) {
-    e.preventDefault();
-    const commentID = form.dataset.commentId;
-
-    const csrftoken = getCookie('csrftoken');
-    const response = await fetch('api/delete-comment/' + commentID + '/', {
-        method: 'DELETE',
-        headers: {
-            'X-CSRFToken': csrftoken,
+    document.querySelectorAll('.likeForm').forEach(form => {
+        form.onsubmit = async (e) => {
+            submitCommentForm(e, form, "POST", "like")
         }
     });
-    if (response.ok) {
-        await fetchComments();
-    }
+
+    document.querySelectorAll('.replyForm').forEach(form => {
+        form.onsubmit = async (e) => {
+            submitCommentForm(e, form, "POST", "reply")
+        }
+    });
 }
 
 function getCookie(name) {

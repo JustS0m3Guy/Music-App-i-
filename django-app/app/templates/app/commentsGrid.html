@@ -12,7 +12,7 @@
             <div class="actions">
                 <form method="post" class="likeForm" data-comment-id="{{ comment.commentID }}">
                     {% csrf_token %}
-                    <button type="submit" value="like" id="likeComment">{% trans "Like" %}</button>
+                    {{ comment.likes }}<button type="submit" value="like" id="likeComment">{% trans "Like" %}</button>
                 </form>
                 <form method="post" class="replyForm" data-comment-id="{{ comment.commentID }}">
                     {% csrf_token %}
