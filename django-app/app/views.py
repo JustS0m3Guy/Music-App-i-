@@ -206,7 +206,15 @@ def register(request):
             # Redirect to a success page.
             return redirect('home')
         else:
-            return redirect('register')
+            return render(
+            request,
+            'app/register.html',
+            {
+                'title':_('Register'),
+                'year':datetime.now().year,
+                'form': form,
+            }
+        ) 
     if request.method == "GET":
         form=RegisterForm()
         return render(

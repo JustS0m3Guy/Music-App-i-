@@ -16,6 +16,7 @@
                     <h2>{{ title }}</h2>
                     {% for field in form %}
                     <p>
+                        {{ field.label_tag }} {{ field }}
                         {% if field.errors %}
                         <ul class="errorlist">
                             {% for error in field.errors %}
@@ -23,7 +24,7 @@
                             {% endfor %}
                         </ul>
                         {% endif %}
-                        {{ field.label_tag }} {{ field }}
+                        
                     </p>
                     {% endfor %}
                     <button type="submit">{% trans "Register" %}</button>
