@@ -10,9 +10,20 @@
             <div class="meta"> {{ comment.userID.username }} &bull; {{ comment.commentTime }}</div>
             <div class="text">{{ comment.commentText }}</div>
             <div class="actions">
-                <span>{% trans "Like" %}</span>
-                <span>{% trans "Reply" %}</span>
-                <span>{% trans "Delete" %}</span>
+                <form method="post" class="likeForm" data-comment-id="{{ comment.commentID }}">
+                    {% csrf_token %}
+                    {{ comment.likes }}<button type="submit" value="like" id="likeComment">{% trans "Like" %}</button>
+                </form>
+                <form method="post" class="replyForm" data-comment-id="{{ comment.commentID }}">
+                    {% csrf_token %}
+                    <button type="submit" value="reply" id="replyComment">{% trans "Reply" %}</button>
+                </form>
+                {% if user == comment.userID %}
+                <form method="post" class="deleteForm" action="api/delete-comment/{{ comment.commentID }}/" data-comment-id="{{ comment.commentID }}">
+                    {% csrf_token %}
+                    <button type="submit" value="delete" id="deleteComment">{% trans "Delete" %}</button>
+                </form>
+                {% endif %}
             </div>
         </div>
     </div>

@@ -254,6 +254,20 @@ def get_comments(request, gameID: int):
             }
         )
 
+@login_required
+def delete_comment(request, gameID: int, commentID: int):
+    """Deletes a comment."""
+    assert isinstance(request, HttpRequest)
+    if request.method == "DELETE":
+        comment = Comments.objects.get(commentID=commentID)
+        if comment.userID == request.user:
+            comment.delete()
+            return HttpResponse(status=200)
+        else:
+            return HttpResponse(status=403)
+    else:
+        return HttpResponse(status=405)
+
 def game_detail(request: HttpRequest, gameID: int) -> Any:
     assert isinstance(request, HttpRequest)
     game = Games.objects.get(gameID=gameID)
@@ -268,6 +282,39 @@ def game_detail(request: HttpRequest, gameID: int) -> Any:
         }
     )
 
+@login_required
+def delete_comment(request, gameID: int, commentID: int):
+    """Deletes a comment."""
+    assert isinstance(request, HttpRequest)
+
+    if request.method == "DELETE":
+        comment = Comments.objects.get(commentID=commentID)
+        if comment.userID == request.user:
+            comment.delete()
+            return HttpResponse(status=200)
+        else:
+            return HttpResponse(status=403)
+    else:
+        return HttpResponse(status=405)
+
+@login_required
+def like_comment(request, gameID: int, commentID: int):
+    """Likes a comment."""
+    assert isinstance(request, HttpRequest)
+    if request.method == "POST":
+        comment = Comments.objects.get(commentID=commentID)
+        userLike, created = LikedComments.objects.get_or_create(userID=request.user, commentID=comment)
+        if created:
+            comment.likes += 1
+            comment.save()
+            return HttpResponse(status=200)
+        else:
+            userLike.delete()
+            comment.likes -= 1
+            comment.save()
+            return HttpResponse(status=200)
+    else:
+        return HttpResponse(status=405)
 
 @login_required
 def add_to_favs(request: HttpRequest, songId: int) -> Any:

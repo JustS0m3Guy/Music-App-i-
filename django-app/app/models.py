@@ -58,6 +58,12 @@ class Comments(models.Model):
     gameID = models.ForeignKey(Games, on_delete=models.SET_NULL, null=True, blank=True, default=None)
     commentText = models.TextField('Comment', max_length=512, null=False, default='')
     commentTime = models.DateTimeField('Comment Time', default=now, null=False)
+    likes = models.BigIntegerField('Likes', null=False, default=0)
+    isReply = models.BooleanField('Reply', null=True, blank=True, default=False)
+    replyCommentID = models.BigIntegerField('Reply Comment ID', null=True, blank=True, default=None)
 
+class LikedComments(models.Model):
+    userID = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True, default=None)
+    commentID = models.ForeignKey(Comments, on_delete=models.CASCADE, null=True, blank=True, default=None)
 
 # Create your models here.

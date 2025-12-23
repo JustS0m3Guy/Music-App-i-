@@ -59,12 +59,45 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
 });
 
+async function submitCommentForm(e, form, method, url) {
+    e.preventDefault();
+    const commentID = form.dataset.commentId;
+    const csrftoken = getCookie('csrftoken');
+    const response = await fetch('api/'+ url +'-comment/' + commentID + '/', {
+        method: method,
+        headers: {
+            'X-CSRFToken': csrftoken,
+        }
+    });
+    if (response.ok) {
+        await fetchComments();
+    }
+}
+
 async function fetchComments() {
     let url = 'api/get-comments';
 
     const response = await fetch(url);
 
     document.getElementById('commentGrid').innerHTML = await response.text();
+
+    document.querySelectorAll('.deleteForm').forEach(form => {
+        form.onsubmit = async (e) => {
+            submitCommentForm(e, form, "DELETE", "delete")
+        }
+    });
+
+    document.querySelectorAll('.likeForm').forEach(form => {
+        form.onsubmit = async (e) => {
+            submitCommentForm(e, form, "POST", "like")
+        }
+    });
+
+    document.querySelectorAll('.replyForm').forEach(form => {
+        form.onsubmit = async (e) => {
+            submitCommentForm(e, form, "POST", "reply")
+        }
+    });
 }
 
 function getCookie(name) {

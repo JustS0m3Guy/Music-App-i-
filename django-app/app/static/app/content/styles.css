@@ -487,7 +487,12 @@ main.content {
   font-weight: 700;
 }
 
-
+.actions button{
+    cursor: pointer;
+    border: none;
+    background-color: transparent;
+    font-family: inherit;
+}
 
 /* Inputs */
 .comment-input {
