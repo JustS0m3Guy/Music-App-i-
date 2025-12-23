@@ -31,17 +31,26 @@ class RegisterForm(UserCreationForm):
         model = User
         fields = ['username', 'email', 'password1', 'password2']
 
-    # def clean(self):
-    #     cleaned_data = super().clean()
-    #     password = cleaned_data.get("password")
-    #     confirm_password = cleaned_data.get("confirm_password")
+    def clean(self):
+        cleaned_data = super().clean()
+        username = cleaned_data.get('username')
+        email = cleaned_data.get('email')
+        password = cleaned_data.get("password1")
+        confirm_password = cleaned_data.get("password2")
+        if not password.isalnum():
+            raise forms.ValidationError(
+                self.add_error('password1', 'Password contains an invalid character! :)')
+            )
+        if password.islower():
+            raise forms.ValidationError(
+                self.add_error('password1', 'Please use at least one capitalized letter! :)')
+            )
+        # if password != confirm_password:
+        #     raise forms.ValidationError(
+        #         self.add_error('password2', 'Confirm Password does not match password')
+        #     )
 
-    #     if password != confirm_password:
-    #         raise forms.ValidationError(
-    #             "Password and Confirm Password does not match"
-    #         )
-
-    #     return cleaned_data
+        return cleaned_data
 class LoginForm(AuthenticationForm):
     # username = forms.CharField(max_length=254, widget=forms.TextInput(
     #     attrs={'class': 'form-control', 'placeholder': 'Username'}))

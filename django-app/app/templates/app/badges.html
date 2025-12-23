@@ -1,0 +1,33 @@
+{% extends 'app/layout.html' %}
+
+{% load static %}
+{% block styles %}
+<script src="{% static 'app/scripts/profile.js' %}"></script>
+{% endblock %}
+{% block content %}
+<main class="content" id="app">
+
+  <section id="profileView" class="view light-panel">
+    <header class="hero light-panel">
+      <div class="left">
+        <h2>Your Badges</h2>
+        <p>Earn badges by adding favourite songs or by being active on the platform!</p>
+      </div>
+    </header>
+
+    <div class="badges-container">
+      {% if userBadges %}
+        {% for badge in userBadges %}
+          <div class="badge-card">
+            <h3>{{ badge.badgeName }}</h3>
+            <p>{{ badge.badgeDesc }}</p>
+          </div>
+        {% endfor %}
+      {% else %}
+        <p>No badges earned yet.</p>
+      {% endif %}
+    </div>
+  </section>
+</main>
+
+{% endblock %}

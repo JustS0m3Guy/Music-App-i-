@@ -14,6 +14,8 @@ from .forms import RegisterForm, LoginForm
 from django.utils.translation import gettext as _
 from django.utils.translation import activate
 from django.urls import reverse
+from django.db.models import Count
+from django.db import connection
 
 def role_required(role):
     def decorator(view_func):
@@ -26,18 +28,22 @@ def role_required(role):
         return _wrapped_view
     return decorator
 
+# def checkForBadges():
+#     def wrapper(func, *args, **kwargs):
 
-@login_required
-def view_favorites(request: HttpRequest) -> Any:
-    assert isinstance(request, HttpRequest)
-    return render(
-        request,
-        'app/favourites.html',
-        {
-            'game_years': Games.objects.values_list('releaseYear', flat=True).distinct().order_by('releaseYear').reverse(), 
-            'game_genres': Games.objects.values_list('genre', flat=True).distinct().order_by('genre'), 
-        }
-    )
+
+
+# @login_required
+# def view_favorites(request: HttpRequest) -> Any:
+#     assert isinstance(request, HttpRequest)
+#     return render(
+#         request,
+#         'app/favourites.html',
+#         {
+#             'game_years': Games.objects.values_list('releaseYear', flat=True).distinct().order_by('releaseYear').reverse(), 
+#             'game_genres': Games.objects.values_list('genre', flat=True).distinct().order_by('genre'), 
+#         }
+#     )
 
 @role_required('admin')
 def edit_Game(request: HttpRequest, gameID: int) -> Any:
@@ -59,6 +65,26 @@ def edit_Game(request: HttpRequest, gameID: int) -> Any:
         {
             'game': game,
         }
+    )
+
+#implement following query for getting favourite games with their songs
+#select Count(gameID_id) from app_songs as s join app_games as g on s.gameID_id=g.gameID where songID in (select songID_id from app_favsongs where userID_id =2)group by gameID;
+
+@login_required
+def profile(request: HttpRequest):
+    assert isinstance(request, HttpRequest)
+    currentuser = request.user
+    from .badgeCkeckers import checkBadges
+    checkBadges(currentuser)
+    # if FavSongs.objects.filter(userID=currentuser).count() > 9:
+    #     UserBadges.objects.get_or_create(userID=currentuser, badgeID=2)
+
+    return render(
+        request, 
+            'app/badges.html', 
+            {
+                'userBadges': BadgeTypes.objects.filter(badgeTypeID__in=UserBadges.objects.filter(userID=currentuser).values('badgeTypeID_id')),
+            }
     )
 
 @role_required('admin')
@@ -113,6 +139,7 @@ def loginView(request):
             password = form.cleaned_data.get('password')
             user = authenticate(username=username, password=password)
             login(request, user)
+            UserBadges.objects.get_or_create(userID=user, badgeTypeID_id=3)
             return redirect('home')
 
         else:
@@ -179,7 +206,15 @@ def register(request):
             # Redirect to a success page.
             return redirect('home')
         else:
-            return redirect('register')
+            return render(
+            request,
+            'app/register.html',
+            {
+                'title':_('Register'),
+                'year':datetime.now().year,
+                'form': form,
+            }
+        ) 
     if request.method == "GET":
         form=RegisterForm()
         return render(

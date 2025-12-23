@@ -1,6 +1,6 @@
 {% load i18n %}
 <nav class="links" role="navigation" aria-label="Main navigation">
-  <button class="nav-btn active" data-route="home" onclick="SearchGames()">Browse</button>
+  <!--<button class="nav-btn active" data-route="home" onclick="SearchGames()">{% trans "Browse" %}</button> -->
   {% if user.is_authenticated %}
   <!-- <form id="logoutForm" action="/logout/" method="post" class="navbar-right">
     {% csrf_token %}
@@ -9,22 +9,20 @@
       <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
     </ul>
   </form> -->
-  <button class="nav-btn" id="upload-button" data-route="upload">Upload</button>
-          <button class="nav-btn" id="favs-button" data-route="favs" onclick="window.location.href='{% url 'favourites' %}'">Favourites</button>
+  <button class="nav-btn" id="upload-button" data-route="upload">{% trans "Upload" %}</button>
+          <button class="nav-btn" id="favs-button" data-route="favs" onclick="window.location.href='{% url 'favourites' %}'">{% trans "Favourites" %}</button>
         </nav>
-
-        <div class="profile">
-          <div class="avatar" title="Profile"></div>
-        </div>
-          <span class="muted small">{% trans "Hello," %} {{ user.username }}!</span>
-          <a href="javascript:document.getElementById('logoutForm').submit()">{% trans "Log out" %}</a>
+        <!-- <div class="avatar" title="Profile"></div> -->
+        <!-- <div class="profile"></div> -->
+          <button class="nav-btn" id="profile-link" data-route="profile" onclick="window.location.href='{% url 'profile' %}'">{% trans "Hello," %} {{ user.username }}!</button>
+          <a href="javascript:document.getElementById('logoutForm').submit()">Log out</a>
           <form id="logoutForm" action="{% url 'logout' %}" method="post" style="display:none;">
               {% csrf_token %}
           </form>
 
 {% else %}
 
-    <a href="{% url 'login' %}">Log in</a>
+    <a href="{% url 'login' %}">{% trans "Log in" %}</a>
 
     </nav>
 
