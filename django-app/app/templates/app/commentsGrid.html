@@ -7,24 +7,26 @@
             {{ comment.userID.username|slice:":1"|upper }}
         </div>
         <div class="body">
-            <div class="meta"> {{ comment.userID.username }} &bull; {{ comment.commentTime }}</div>
+            <div class="meta"> {{ comment.userID.username }} &bull; {{ comment.commentTime }} {% if comment.isReply %} Replied to: {{ comment.replyCommentID.userID.username }} {% endif %}</div>
             <div class="text">{{ comment.commentText }}</div>
             <div class="actions">
                 <form method="post" class="likeForm" data-comment-id="{{ comment.commentID }}">
                     {% csrf_token %}
-                    {{ comment.likes }}<button type="submit" value="like" id="likeComment">{% trans "Like" %}</button>
+                    {{ comment.likes }}<button type="submit" value="like">{% trans "Like" %}</button>
                 </form>
-                <form method="post" class="replyForm" data-comment-id="{{ comment.commentID }}">
-                    {% csrf_token %}
-                    <button type="submit" value="reply" id="replyComment">{% trans "Reply" %}</button>
-                </form>
-                {% if user == comment.userID %}
+                <button value="reply" id="replyComment">{% trans "Reply" %}</button>
                 <form method="post" class="deleteForm" action="api/delete-comment/{{ comment.commentID }}/" data-comment-id="{{ comment.commentID }}">
                     {% csrf_token %}
-                    <button type="submit" value="delete" id="deleteComment">{% trans "Delete" %}</button>
+                    <button type="submit" value="delete">{% trans "Delete" %}</button>
                 </form>
-                {% endif %}
             </div>
+            <form method="post" action="api/get-comments/" class="replyForm" data-comment-id="{{ comment.commentID }}">
+                {% csrf_token %}
+                <textarea name="relpyData" rows="3" class="comment-input reply-input" placeholder="{% trans 'Write a reply...' %}" oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"'></textarea>
+                <div style="display:flex; justify-content:flex-end; margin-top:8px;">
+                    <button id="postComment" class="btn-primary" type="submit">{% trans "Post reply" %}</button>
+                </div>
+            </form>
         </div>
     </div>
 </article>

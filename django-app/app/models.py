@@ -60,7 +60,7 @@ class Comments(models.Model):
     commentTime = models.DateTimeField('Comment Time', default=now, null=False)
     likes = models.BigIntegerField('Likes', null=False, default=0)
     isReply = models.BooleanField('Reply', null=True, blank=True, default=False)
-    replyCommentID = models.BigIntegerField('Reply Comment ID', null=True, blank=True, default=None)
+    replyCommentID = models.ForeignKey('self', null=True, blank=True, default=None, on_delete=models.CASCADE)
 
 class LikedComments(models.Model):
     userID = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True, default=None)

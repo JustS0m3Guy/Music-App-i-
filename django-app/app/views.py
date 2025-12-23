@@ -268,35 +268,6 @@ def delete_comment(request, gameID: int, commentID: int):
     else:
         return HttpResponse(status=405)
 
-def game_detail(request: HttpRequest, gameID: int) -> Any:
-    assert isinstance(request, HttpRequest)
-    game = Games.objects.get(gameID=gameID)
-    songs = Songs.objects.filter(gameID=gameID)
-    return render(
-        request,
-        'app/game_detail.html',
-        {
-            'game': game,
-            'songs': songs,
-            
-        }
-    )
-
-@login_required
-def delete_comment(request, gameID: int, commentID: int):
-    """Deletes a comment."""
-    assert isinstance(request, HttpRequest)
-
-    if request.method == "DELETE":
-        comment = Comments.objects.get(commentID=commentID)
-        if comment.userID == request.user:
-            comment.delete()
-            return HttpResponse(status=200)
-        else:
-            return HttpResponse(status=403)
-    else:
-        return HttpResponse(status=405)
-
 @login_required
 def like_comment(request, gameID: int, commentID: int):
     """Likes a comment."""
@@ -315,6 +286,41 @@ def like_comment(request, gameID: int, commentID: int):
             return HttpResponse(status=200)
     else:
         return HttpResponse(status=405)
+
+@login_required
+def reply_comment(request, gameID: int, commentID: int):
+    """Replies to a comment"""
+    assert isinstance(request, HttpRequest)
+    if request.method == "POST":
+        reply_text = request.POST.get('relpyData')
+        user = request.user
+        parent_comment = Comments.objects.get(commentID=commentID)
+        comment = Comments(
+           userID=user,
+           gameID = Games.objects.get(gameID=gameID),
+           commentText=reply_text,
+           commentTime=datetime.now(),
+           replyCommentID = parent_comment,
+           isReply=True,
+           ).save()
+        return HttpResponse(status=201)
+
+    else:
+        return HttpResponse(status=405)
+
+def game_detail(request: HttpRequest, gameID: int) -> Any:
+    assert isinstance(request, HttpRequest)
+    game = Games.objects.get(gameID=gameID)
+    songs = Songs.objects.filter(gameID=gameID)
+    return render(
+        request,
+        'app/game_detail.html',
+        {
+            'game': game,
+            'songs': songs,
+            
+        }
+    )
 
 @login_required
 def add_to_favs(request: HttpRequest, songId: int) -> Any:

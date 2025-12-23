@@ -63,11 +63,14 @@ async function submitCommentForm(e, form, method, url) {
     e.preventDefault();
     const commentID = form.dataset.commentId;
     const csrftoken = getCookie('csrftoken');
-    const response = await fetch('api/'+ url +'-comment/' + commentID + '/', {
+    const body = (url === "reply") ? new FormData(form) : null;
+    
+    const response = await fetch('api/' + url + '-comment/' + commentID + '/', {
         method: method,
         headers: {
             'X-CSRFToken': csrftoken,
-        }
+        },
+        body: body,
     });
     if (response.ok) {
         await fetchComments();
