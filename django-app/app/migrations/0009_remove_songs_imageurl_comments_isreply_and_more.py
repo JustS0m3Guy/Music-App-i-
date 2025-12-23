@@ -13,10 +13,6 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RemoveField(
-            model_name='songs',
-            name='imageURL',
-        ),
         migrations.AddField(
             model_name='comments',
             name='isReply',
@@ -27,11 +23,11 @@ class Migration(migrations.Migration):
             name='replyCommentID',
             field=models.BigIntegerField(blank=True, default=None, null=True, verbose_name='Reply Comment ID'),
         ),
-        migrations.AddField(
-            model_name='games',
-            name='imageURL',
-            field=models.URLField(blank=True, default='', max_length=512, null=True, verbose_name='Image URL'),
-        ),
+        # migrations.AddField(
+        #     model_name='games',
+        #     name='imageURL',
+        #     field=models.URLField(blank=True, default='', max_length=512, null=True, verbose_name='Image URL'),
+        # ),
         migrations.AlterField(
             model_name='badgetypes',
             name='badgeDesc',
